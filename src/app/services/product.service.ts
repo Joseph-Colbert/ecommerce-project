@@ -13,8 +13,12 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProductList(): Observable<Product[]> {/*mapea el Json desde spring para el array de productos*/ 
-    return this.httpClient.get<GetResponse>(this.baseUrl).pipe(
+  getProductList(theCategoryId: number): Observable<Product[]> {/*mapea el Json desde spring para el array de productos*/ 
+  
+  //construccion de URL basada en el id de la categoria
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+
+    return this.httpClient.get<GetResponse>(searchUrl).pipe(
     map(response => response._embedded.products)
     );
   }
