@@ -21,10 +21,23 @@ export class ProductService {
   //construccion de URL basada en el id de la categoria
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
 
+    return this.getProducts(searchUrl);
+  }
+
+  searchProducts(theKeyword: string): Observable<Product[]> {
+
+    //construccion de URL basada en el teclado
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+
+    return this.getProducts(searchUrl);
+  }
+
+  private getProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
     map(response => response._embedded.products)
     );
   }
+
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.productCategory)
