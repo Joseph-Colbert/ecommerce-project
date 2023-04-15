@@ -11,6 +11,7 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
 import { SearchComponent } from './components/search/search.component';
 
 
+
 //Rutas
 const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent}, 
@@ -27,7 +28,7 @@ const routes: Routes = [
     AppComponent,
     ProductListComponent,
     ProductCategoryMenuComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
