@@ -8,6 +8,7 @@ import { ProductCategory } from '../common/product-category';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
 
   private baseUrl = 'http://localhost:8080/api/products';
@@ -26,13 +27,19 @@ export class ProductService {
 
   getProductListPaginate(thePage: number,
                          thePageSize: number,
-                         theCategoryId: number): Observable<GetResponseProducts> {/*mapea el Json desde spring para el array de productos*/ 
-  
+                         theCategoryId: number,
+                         theEnterpriseId: number): Observable<GetResponseProducts> {/*mapea el Json desde spring para el array de productos*/ 
+
   //construccion de URL basada en el id de la categoria/ pagina y tamaño
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
                     + `&page=${thePage}&size=${thePageSize}`;
+
+    let searchUrlEnterprise = "";
+
+    theEnterpriseId !== 1?  searchUrlEnterprise = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+                                                      + `&page=${thePage}&size=${thePageSize}`: searchUrlEnterprise = searchUrl
  
-    return this.httpClient.get<GetResponseProducts>(searchUrl);
+    return this.httpClient.get<GetResponseProducts>(searchUrlEnterprise);
   }
  
   getProductList(theCategoryId: number): Observable<Product[]> {/*mapea el Json desde spring para el array de productos*/ 

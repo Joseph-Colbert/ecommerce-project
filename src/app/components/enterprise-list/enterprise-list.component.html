@@ -1,0 +1,23 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- LOOP OVER THE COLLECTION OF PRODUCTS -->
+                <div *ngFor= "let tempEnterprise of enterprises" class="col-md-3">
+
+                    <div class="enterprise-box">
+                        <a routerLink="/enterprises/{{ tempEnterprise.id }}/products">
+                            <img src="{{ tempEnterprise.imageUrl }}" class="img-responsive">
+                            <h1>{{ tempEnterprise.name }}</h1>
+                        </a>   
+                </div>
+
+                <!-- Si no se encutran las empresas, desplegar el mensaje
+                <div *ngIf= "enterprises?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                    No se encontraron empresas.
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>

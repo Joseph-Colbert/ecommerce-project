@@ -1,63 +1,69 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
-import { Product } from 'src/app/common/product';
+import { Component, OnInit } from '@angular/core';
+import { Enterprise } from 'src/app/common/enterprise';
+import { EnterpriseService } from 'src/app/services/enterprise.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list-grid.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-enterprise-list',
+  templateUrl: './enterprise-list.component.html',
+  styleUrls: ['./enterprise-list.component.css']
 })
+export class EnterpriseListComponent implements OnInit {
 
-export class ProductListComponent implements OnInit {
-
-  products: Product[] = [];
+  enterprises: Enterprise[] = [];
   currentCategoryId: number = 1;
-  currentEnterpriseId: number = 1;
   previousCategoryId: number = 1;
   searchMode: boolean = false;
 
   // nuevas propiedades para la paginacion
   thePageNumber : number = 1;
-  thePageSize: number = 5;
+  thePageSize: number = 10;
   theTotalElements: number = 10;
 
 
-  constructor(private productService: ProductService,
+  constructor(private enterpriseService: EnterpriseService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.listProductJson();
     this.route.paramMap.subscribe(() => {
-      this.listProducts();
+      this.listEnterprise();
     });
   }  
 
-
-  listProducts(){
+  listProductJson() {
+    this.enterpriseService.getEnterpriseJSON().subscribe(
+      ( data: Enterprise[]) => {
+        console.log('Enterprise =' + JSON.stringify(data));
+        this.enterprises = data;
+      }
+    );
+  }
+  listEnterprise(){
 
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
-      this.handleSearchProducts();
+      this.handleListEnterprises(); //this.handleSearchEnterprises();
     } 
     else {
-      this.handleListProducts();
+      this.handleListEnterprises();
     }
   }
 
-  handleSearchProducts(){
+ /* handleSearchEnterprises(){
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
     //ahora buscaremos a los productos por teclado
-    this.productService.searchProducts(theKeyword).subscribe(
+    this.enterpriseService.searchEnterprise(theKeyword).subscribe(
       data => {
         this.products = data;
       }
     )
-  }
+  }*/
 
-  handleListProducts() {
+  handleListEnterprises() {
 
     //Verificar que el parametro "id" esa disponible
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
@@ -70,25 +76,6 @@ export class ProductListComponent implements OnInit {
       //Categoria no esta disponible, por defecto con el id 1
       this.currentCategoryId = 1;
     }
-
-
-
-
-    
-    const hasEnterpriseId: boolean = this.route.snapshot.paramMap.has('idEnterprise');
-
-    if (hasEnterpriseId){
-      
-      this.currentEnterpriseId = +this.route.snapshot.paramMap.get('idEnterprise')!;
-    }
-    else {
-      
-      this.currentEnterpriseId = 1;
-    }
-
-
-
-
       //
       // Verificar si tenemos una categoria diferente a la anterior
       // Si tenemos un id de categoria diferente
@@ -102,9 +89,9 @@ export class ProductListComponent implements OnInit {
 
 
       // Obtener los productos de la categoria dada por id, entonces set thePageNumber de vuelta a 1
-      this.productService.getProductListPaginate(this.thePageNumber -1,
+   /*   this.enterpriseService.getProductListPaginate(this.thePageNumber -1,
                                                  this.thePageSize,
-                                                 this.currentCategoryId, this.currentEnterpriseId)
+                                                 this.currentCategoryId)
                                                  .subscribe(
                                                   data => {
                                                     this.products = data._embedded.products;
@@ -112,13 +99,6 @@ export class ProductListComponent implements OnInit {
                                                     this.thePageSize = data.page.size;
                                                     this.theTotalElements = data.page.totalElements
                                                   }
-                                                 );
-  }
-
-  updatePageSize(pageSize: string) {
-    this.thePageSize = +pageSize;
-    this.thePageNumber = 1;
-    this.listProducts();
-
+                                                 );*/
   }
 }
