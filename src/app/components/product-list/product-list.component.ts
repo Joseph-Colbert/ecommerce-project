@@ -1,7 +1,9 @@
+import { CartService } from './../../services/cart.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/common/product';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from 'src/app/common/cart-item';
 
 @Component({
   selector: 'app-product-list',
@@ -20,10 +22,13 @@ export class ProductListComponent implements OnInit {
   // nuevas propiedades para la paginacion
   thePageNumber : number = 1;
   thePageSize: number = 5;
-  theTotalElements: number = 10;
+  theTotalElements: number = 0;
+
+  previousKeyword: string = "";
 
 
   constructor(private productService: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -49,12 +54,21 @@ export class ProductListComponent implements OnInit {
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
+    //si tenemos un diferente teclado que el anterior 
+    //entonces set thePageNumber a 1
+
+    if (this.previousKeyword != theKeyword) {
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
+
+    console.log(`keyword=${theKeyword}, thePageNumbert=${this.thePageNumber}`);
+
     //ahora buscaremos a los productos por teclado
-    this.productService.searchProducts(theKeyword).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
+    this.productService.searchProductsPaginate(this.thePageNumber - 1,
+                                               this.thePageSize,
+                                               theKeyword).subscribe(this.processResult());
   }
 
   handleListProducts() {
@@ -105,14 +119,7 @@ export class ProductListComponent implements OnInit {
       this.productService.getProductListPaginate(this.thePageNumber -1,
                                                  this.thePageSize,
                                                  this.currentCategoryId, this.currentEnterpriseId)
-                                                 .subscribe(
-                                                  data => {
-                                                    this.products = data._embedded.products;
-                                                    this.thePageNumber = data.page.number + 1;
-                                                    this.thePageSize = data.page.size;
-                                                    this.theTotalElements = data.page.totalElements
-                                                  }
-                                                 );
+                                                 .subscribe(this.processResult());
   }
 
   updatePageSize(pageSize: string) {
@@ -121,4 +128,22 @@ export class ProductListComponent implements OnInit {
     this.listProducts();
 
   }
+
+  processResult() {
+    return (data:any) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    }
+  }
+
+  addToCart(theProduct: Product){
+    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+
+    const theCartItem = new CartItem(theProduct);
+
+    this.cartService.addToCart(theCartItem);
+  }
 }
+

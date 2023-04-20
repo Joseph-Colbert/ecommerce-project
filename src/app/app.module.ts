@@ -16,6 +16,7 @@ import { EnterpriseListComponent } from './components/enterprise-list/enterprise
 import { EnterpriseCategoryMenuComponent } from './components/enterprise-category-menu/enterprise-category-menu.component';
 import { EnterpriseService } from './services/enterprise.service';
 import { EnterpriseDetailsComponent } from './components/enterprise-details/enterprise-details.component';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
 
 
 //Rutas
@@ -44,6 +45,7 @@ const routes: Routes = [
     EnterpriseListComponent,
     EnterpriseCategoryMenuComponent,
     EnterpriseDetailsComponent,
+    CartStatusComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
