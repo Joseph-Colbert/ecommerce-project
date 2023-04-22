@@ -32,7 +32,7 @@ export class CartService {
 
     if (alreadyExistsInCart) {
       //incrementar la cantidad 
-      existingCartItem.quatity++;
+      existingCartItem.quantity++;
     } else {
       // solo añade el item al array
       this.cartItems.push(theCartItem); 
@@ -47,8 +47,8 @@ export class CartService {
     let totalQuantityValue: number = 0;
     
     for (let currentCartItem of this.cartItems) {
-      totalPriceValue += currentCartItem.quatity * currentCartItem.unitPrice;
-      totalQuantityValue += currentCartItem.quatity;
+      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
+      totalQuantityValue += currentCartItem.quantity;
     }
 
     // publicar los nuevos valores // next enviara el evento
@@ -63,12 +63,34 @@ export class CartService {
     
     console.log('Contents of the cart');
     for (let tempCartItem of this.cartItems) {
-      const subTotalPrice = tempCartItem.quatity * tempCartItem.unitPrice;
-      console.log(`name: ${tempCartItem.name}, quantity= ${tempCartItem.quatity}, unitPrices= ${tempCartItem.unitPrice}, subTotalPrice= ${subTotalPrice}`)
+      const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
+      console.log(`name: ${tempCartItem.name}, quantity= ${tempCartItem.quantity}, unitPrices= ${tempCartItem.unitPrice}, subTotalPrice= ${subTotalPrice}`)
     }
 
     // toFixed, para que muestre dos decimales 
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)},totalQuantityL ${totalQuantityValue}`);
     console.log('----');
+  }
+
+  decrementQuantity(theCartItem: CartItem) {
+    theCartItem.quantity--;
+
+    if (theCartItem.quantity === 0) {
+      this.remove(theCartItem);
+    } else {
+      this.computeCartTotals();
+    }
+  }
+  remove(theCartItem: CartItem) {
+    
+    //obtener el index de los items del array
+    const itemIndex = this.cartItems.findIndex( tempCartItem => tempCartItem.id === theCartItem.id );
+
+    // si lo encuentra, remover el item del array de la lista dada
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
+
+      this.computeCartTotals();
+    }
   }
 }
