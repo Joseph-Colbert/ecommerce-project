@@ -36,6 +36,208 @@
                         </div>
                     </div>
                 </div>
+
+                <!--direccion de envio-->
+                <div formGroupName="shippingAddress" class="form-area">
+
+                    <h3>Direccion de envio</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>País</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlname="country">
+                                    <option>To Do</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Calle</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="street" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Ciudad</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="city" type="text">
+                            </div>
+                        </div>
+                    </div>
+     
+                    <div class="row">
+                        <div class="col-md-2"> <label>Estado</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlname="state">
+                                    <option>To Do</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Codigo Postal</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="zipCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--añadir un check box para copiar datos del envio a la orden de cobro-->  
+                <div class="input-space">
+                    <label class="au-checkbox">
+                        <input type="checkbox" (change)="copyShippingAdressToBillingAddress($event)">
+                        <span class="au-checkmark"></span>Lugar de cobro mismo que el lugar de envio
+                    </label>
+                </div>
+
+                
+                <!--Direccion de cobro-->  
+                <div formGroupName="billingAddress" class="form-area">
+
+                    <h3>Direccion de Cobro</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>País</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlname="country">
+                                    <option>To Do</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Calle</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="street" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Ciudad</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="city" type="text">
+                            </div>
+                        </div>
+                    </div>
+     
+                    <div class="row">
+                        <div class="col-md-2"> <label>Estado</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlname="state">
+                                    <option>To Do</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Codigo Postal</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="zipCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--informacion de tarjeta dee credito-->  
+                <div formGroupName="creditCard" class="form-area">
+
+                    <h3>Datos de la Tarjeta</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Tipo de la tarjeta</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Nombre del titular</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="nameOnCard" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Número de la tarjeta</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="cardNumber" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Código de seguridad</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="securityCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Mes de expiracion</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationMonth">
+                                    <option *ngFor="let month of creditCardMonths">
+                                        {{ month }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Año de expiracion</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
+                                    <option *ngFor="let year of creditCardYears">
+                                        {{ year }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Detalles de orden-->
+                <div class="form-area">
+                    <h3>Vista de la orden</h3>
+
+                    <p>Cantidad Total: {{ totalQuantity }}</p>
+                    <p>Precio Total: {{ totalPrice | currency: 'Bs ' }}</p>
+                </div>
+
                 <!--boton para enviar-->  
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Comprar</button>

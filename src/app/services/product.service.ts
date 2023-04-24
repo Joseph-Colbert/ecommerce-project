@@ -36,7 +36,7 @@ export class ProductService {
 
     let searchUrlEnterprise = "";
 
-    theEnterpriseId !== 1?  searchUrlEnterprise = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
+    theEnterpriseId !== 1?  searchUrlEnterprise = `${this.baseUrl}/search/findByEnterpriseId?enterpriseId=${theEnterpriseId}`
                                                       + `&page=${thePage}&size=${thePageSize}`: searchUrlEnterprise = searchUrl
  
     return this.httpClient.get<GetResponseProducts>(searchUrlEnterprise);
