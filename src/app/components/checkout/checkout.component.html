@@ -14,6 +14,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="firstName" type="text">
+
+                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="firstName.errors?.['required'] || firstName.errors?.['notOnlyWhitespace']">
+                                        Se requiere el primer nombre  
+                                    </div>
+
+                                    <div *ngIf="firstName.errors?.['minlength']">
+                                        El primer Nombre debe tener por lo menos dos caracteres
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -23,6 +35,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="lastName" type="text">
+         
+                                <div *ngIf="firstName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="lastName.errors?.['required'] || lastName.errors?.['notOnlyWhitespace']">
+                                        Se requiere el apellido
+                                    </div>
+
+                                    <div *ngIf="lastName.errors?.['minlength']">
+                                       El apellido debe tener por lo menos dos caracteres
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -32,6 +56,18 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <input formControlName="email" type="text">
+    
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-1">
+
+                                    <div *ngIf="email.errors?.['required']">
+                                        Se requiere el email  
+                                    </div>
+
+                                    <div *ngIf="email.errors?.['pattern']">
+                                        Se debe validar el email con el fomrmato respectivo
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,8 +82,10 @@
                         <div class="col-md-2"> <label>País</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlname="country">
-                                    <option>To Do</option>
+                                <select formControlname="country" (change)="getStates('shippingAddress')">
+                                    <option *ngFor="let country of countries" [ngValue]="country">
+                                        {{ country.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -76,7 +114,9 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlname="state">
-                                    <option>To Do</option>
+                                    <option *ngFor="let state of shippingAddressStates" [ngValue]="state">
+                                        {{ state.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -111,8 +151,9 @@
                         <div class="col-md-2"> <label>País</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlname="country">
-                                    <option>To Do</option>
+                                <select formControlname="country" (change)="getStates('billingAddress')">
+                                    <option *ngFor="let country of countries" [ngValue]="country">
+                                        {{ country.name }}
                                 </select>
                             </div>
                         </div>
@@ -141,7 +182,9 @@
                         <div class="col-md-9">
                             <div class="input-space">
                                 <select formControlname="state">
-                                    <option>To Do</option>
+                                    <option *ngFor="let state of billingAddressStates" [ngValue]="state">
+                                        {{ state.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
