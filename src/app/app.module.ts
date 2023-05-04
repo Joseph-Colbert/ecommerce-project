@@ -19,12 +19,18 @@ import { EnterpriseDetailsComponent } from './components/enterprise-details/ente
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RecordComponent } from './components/auth/record/record.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { interceptorProvider } from './components/interceptors/prod-interceptor.service';
 
 
 //Rutas
 const routes: Routes = [
-  //{path: 'search/:keyword', component: EnterpriseListComponent}, 
+  {path: 'login', component: LoginComponent},
+  {path: 'record', component: RecordComponent},
+  
   {path: 'category-enterprise/:id', component: EnterpriseListComponent},
   {path: 'category-enterprise', component: EnterpriseListComponent},
   {path: 'enterprises', component: EnterpriseListComponent}, 
@@ -38,6 +44,7 @@ const routes: Routes = [
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent}
 ];
+
 //
 
 @NgModule({
@@ -53,16 +60,24 @@ const routes: Routes = [
     CartStatusComponent,
     CartDetailsComponent,
     CheckoutComponent,
+    LoginComponent,
+    RecordComponent,
+    MenuComponent,
+  //  LoginComponent
+   // LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
     NgbModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
+
   ],
   providers: [EnterpriseService,
-             ProductService
+              ProductService,
+              interceptorProvider
   ],
 
   bootstrap: [AppComponent]
