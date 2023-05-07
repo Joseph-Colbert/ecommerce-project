@@ -24,6 +24,13 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RecordComponent } from './components/auth/record/record.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { interceptorProvider } from './components/interceptors/prod-interceptor.service';
+import { NewProductComponent } from './product-admin/new-product/new-product.component';
+import { EditProductComponent } from './product-admin/edit-product/edit-product.component';
+import { ProductDetailComponent } from './product-admin/product-detail/product-detail.component';
+import { ProdGuardService as guard} from './components/guards/prod-guard.service';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductListAdminComponent } from './product-admin/product-list-admin/product-list-admin.component';
 
 
 //Rutas
@@ -42,7 +49,12 @@ const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent}, 
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
-  {path: 'products', component: ProductListComponent}
+  {path: 'products', component: ProductListComponent},
+
+  { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
+  { path: 'detail/:id', component: ProductDetailComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } }, //corroborar el productdetailcomponent
+  { path: 'nuevo', component: NewProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
+  { path: 'edit/:id', component: EditProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
 ];
 
 //
@@ -63,8 +75,10 @@ const routes: Routes = [
     LoginComponent,
     RecordComponent,
     MenuComponent,
-  //  LoginComponent
-   // LoginStatusComponent
+    NewProductComponent,
+    EditProductComponent,
+    ProductDetailComponent,
+    ProductListAdminComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -72,12 +86,12 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule, 
     ReactiveFormsModule,
-    FormsModule
-
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [EnterpriseService,
               ProductService,
-              interceptorProvider
+              interceptorProvider,
   ],
 
   bootstrap: [AppComponent]

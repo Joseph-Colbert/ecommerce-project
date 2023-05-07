@@ -81,6 +81,31 @@ export class ProductService {
       map(response => response._embedded.productCategory)
       );
   }
+
+  // CRUD
+  public list(): Observable<any> {
+    return this.httpClient.get<any>(this.baseUrl);
+  }
+
+  public detail(id: number): Observable<Product> {
+    return this.httpClient.get<Product>(this.baseUrl + `detail/${id}`);
+  }
+
+  public detailName(nombre: string): Observable<Product> {
+    return this.httpClient.get<Product>(this.baseUrl + `detailname/${nombre}`);
+  }
+
+  public save(product: Product): Observable<any> {
+    return this.httpClient.post<any>(this.baseUrl, product);
+  }
+
+  public update(id: number, product: Product): Observable<any> {
+    return this.httpClient.put<any>(this.baseUrl + `update/${id}`, product);
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>(this.baseUrl + `delete/${id}`);
+  }
 }
 
 interface GetResponseProducts {
