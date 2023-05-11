@@ -21,7 +21,7 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
-import { RecordComponent } from './components/auth/record/record.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { interceptorProvider } from './components/interceptors/prod-interceptor.service';
 import { NewProductComponent } from './product-admin/new-product/new-product.component';
@@ -31,18 +31,20 @@ import { ProdGuardService as guard} from './components/guards/prod-guard.service
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductListAdminComponent } from './product-admin/product-list-admin/product-list-admin.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { ProductListEnterpriseComponent } from './components/product-list-enterprise/product-list-enterprise.component';
 
 
 //Rutas
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'record', component: RecordComponent},
+  {path: 'register', component: RegisterComponent},
   
   {path: 'category-enterprise/:id', component: EnterpriseListComponent},
   {path: 'category-enterprise', component: EnterpriseListComponent},
   {path: 'enterprises', component: EnterpriseListComponent}, 
   {path: '', redirectTo: '/enterprises', pathMatch: 'full'},
-  {path: 'enterprises/:idEnterprise/products', component: ProductListComponent},
+  {path: 'enterprises/:idEnterprise/products', component: ProductListEnterpriseComponent},
   {path: 'checkout', component: CheckoutComponent}, 
   {path: 'cart-details', component: CartDetailsComponent}, 
   {path: 'products/:id', component: ProductDetailsComponent}, 
@@ -51,6 +53,7 @@ const routes: Routes = [
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
 
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'detail/:id', component: ProductDetailComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } }, //corroborar el productdetailcomponent
   { path: 'nuevo', component: NewProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
@@ -73,12 +76,14 @@ const routes: Routes = [
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    RecordComponent,
+    RegisterComponent,
     MenuComponent,
     NewProductComponent,
     EditProductComponent,
     ProductDetailComponent,
-    ProductListAdminComponent
+    ProductListAdminComponent,
+    OrderHistoryComponent,
+    ProductListEnterpriseComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

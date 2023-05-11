@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   errMsj!: string;
 
+  //storage: Storage = sessionStorage;
+
   constructor( 
     private tokenService: TokenService,
     private authService: AuthService,

@@ -1,3 +1,4 @@
+import { RoutingServiceService } from './../../services/routing-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Enterprise } from 'src/app/common/enterprise';
 import { EnterpriseService } from 'src/app/services/enterprise.service';
@@ -22,9 +23,11 @@ export class EnterpriseListComponent implements OnInit {
 
 
   constructor(private enterpriseService: EnterpriseService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private routingService: RoutingServiceService) { }
 
   ngOnInit(): void {
+    this.routingService.routeSource.next(this.route);  
     this.listProductJson();
     this.route.paramMap.subscribe(() => {
       this.listEnterprise();

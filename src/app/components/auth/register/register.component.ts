@@ -8,16 +8,19 @@ import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-record',
-  templateUrl: './record.component.html',
-  styleUrls: ['./record.component.css']
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class RecordComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  newUser!: NewUser;
+  isRegister = false;
+  isRegisterFail = false;
+  newUser!:NewUser;
   name!: string;
   userName!: string;
   email!: string;
   password!: string;
+  
   errMsj!: string;
   isLogged = false;
 
@@ -28,24 +31,29 @@ export class RecordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.tokenService.getToken()) {
+    if(this.tokenService.getToken()) {
       this.isLogged = true;
+
     }
   }
 
   onRegister(): void {
-    this.newUser = new NewUser(/*this.name, this.userName, this.email, this.password*/);
-    this.authService.nuevo(this.newUser).subscribe(
-      data => {
-   
+    this.newUser = new NewUser(this.name, this.userName, this.email,this.password);
+    this.authService.nuevo(this.newUser).subscribe({
+      next: data => {
+        this.isRegister = true;
+        this.isRegisterFail = false;
+
 
         this.router.navigate(['/login']);
       },
-      err => {
-        this.errMsj = err.error.mensaje;
-
+      error: err => {
+        this.isRegister = false;
+        this.isRegisterFail = true;
+        this.errMsj = err.error.messagedto;
+        console.log(this.errMsj);
       }
-    );
+  });
   }
 
 }

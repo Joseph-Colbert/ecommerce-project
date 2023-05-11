@@ -1,0 +1,29 @@
+<div class="container">
+    <h3>Tus Ordenes</h3>
+
+    <div *ngIf="orderHistoryList.length > 0">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Tracking Number</th>
+            <th scope="col">Precio Total</th>
+            <th scope="col">Cantidad Total</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tempOrderistory of orderHistoryList">
+            <td>{{tempOrderistory.orderTrackingNumber}}</td>
+            <td>{{tempOrderistory.totalPrice | currency: 'Bs'}}</td>
+            <td>{{tempOrderistory.totalQuantity}}</td>
+            <td>{{tempOrderistory.dateCreated | date: 'medium'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- si el historial de compras esta vacio, desplegar mensaje -->
+    <div *ngIf="orderHistoryList.length== 0" class="alert alert-warning col-md-12" role="alert">
+        No se encontraron compras.
+    </div>
+  </div>

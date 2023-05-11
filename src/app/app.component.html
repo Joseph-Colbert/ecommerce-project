@@ -8,13 +8,12 @@
       </a>
     </div>
 
-    <app-product-category-menu *ngIf="actualRoute.includes('products')||
-                                      actualRoute.includes('category')||
-                                      actualRoute.includes('search')">
+    <app-product-category-menu *ngIf="actualRoute.component?.name !== 'EnterpriseListComponent'">
+                       
 
     </app-product-category-menu>
 
-    <app-enterprise-category-menu *ngIf="actualRoute.includes('enterprises')">
+    <app-enterprise-category-menu *ngIf="actualRoute.component?.name === 'EnterpriseListComponent'">
 
     </app-enterprise-category-menu>
    
