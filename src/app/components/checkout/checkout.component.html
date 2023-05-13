@@ -1,10 +1,13 @@
 <div class="main-content page-m">
+    
     <div class="section-content section-content-p30">
+        
         <div class="container-fluid">
 
             <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
 
                 <!--grupo del formulario para el cliente-->
+                
                 <div formGroupName="customer" class="form-area">
 
                     <h3>Cliente</h3>
@@ -435,8 +438,12 @@
                 <!--boton para enviar-->  
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Comprar</button>
-                </div>  
 
+                    <div class="card-footer">
+                        <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                    </div>
+                    
+                </div>  
             </form>
 
         </div>

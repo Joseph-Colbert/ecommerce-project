@@ -4,15 +4,30 @@
             <div class="row">
 
                 <!-- LOOP OVER THE COLLECTION OF PRODUCTS -->
+                
                 <div *ngFor= "let tempProduct of products" class="col-md-3">
 
-                    <div class="product-box">
+                <div class="card-list-products">
+                    <div class="card">
                         <a routerLink="/products/{{ tempProduct.id }}">
-                            <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
-                            <h1>{{ tempProduct.name }}</h1>
-                        </a>
+                        <div class="card-img">
+                            <img
+                                src="{{ tempProduct.imageUrl }}"
+                                class="img-responsive"
+                            />
+                        </div>
+                        <div class="info-card">
+                            <div class="text-product">
+                                <h3>{{ tempProduct.name }}</h3>
+                            </div>
+                            <div class="price"> {{ tempProduct.unitPrice | currency:'Bs' }}</div>
+                        </div>
+                    </a>
+                    </div>
+                </div> 
 
-                        <div class="price"> {{ tempProduct.unitPrice | currency:'Bs' }}</div>
+                    <div class="product-box">
+                        <div class="price"></div>
                         <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
                     </div>
                     

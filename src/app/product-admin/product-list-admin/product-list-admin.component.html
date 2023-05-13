@@ -13,7 +13,7 @@
           <th scope="col">Codigo</th>
           <th scope="col">Descripcion</th>
           <th scope="col">Stock</th>
-          <th scope="col">Ver</th>
+        <!-- <th scope="col">Ver</th> --> 
           <th scope="col" *ngIf="isAdmin">Editar</th>
           <th scope="col" *ngIf="isAdmin">Borrar</th>
         </tr>
@@ -26,7 +26,7 @@
           <td>{{product.sku}}</td>
           <td>{{product.description}}</td>
           <td>{{product.unitsInStock}}</td>
-      <td><button class="btn btn-outline-primary" routerLink="/detail/{{ product.id }}"><i class="far fa-eye"></i> Ver</button></td>
+      <!-- <td><button class="btn btn-outline-primary" routerLink="/detail/{{ product.id }}"><i class="far fa-eye"></i> Ver</button></td> -->
           <td *ngIf="isAdmin"><button class="btn btn-outline-warning" routerLink="/editar/{{ product.id }}"><i class="far fa-edit"></i> Editar</button></td>
           <td *ngIf="isAdmin"><button class="btn btn-outline-danger" (click)="borrar(product.id)"><i class="far fa-trash-alt"></i> Eliminar</button></td>
         </tr>

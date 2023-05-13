@@ -4,7 +4,7 @@
             <div class="row">
 
                 <!-- LOOP OVER THE COLLECTION OF PRODUCTS -->
-                <div *ngFor= "let tempProduct of products" class="col-md-3">
+                <!--<div *ngFor= "let tempProduct of products" class="col-md-3">
 
                     <div class="product-box">
                         <a routerLink="/products/{{ tempProduct.id }}">
@@ -16,7 +16,36 @@
                         <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
                     </div>
                     
-                </div>
+                </div>-->
+
+                <div *ngFor= "let tempProduct of products" class="col-md-3">
+
+                    <div class="card-list-products">
+                        <div class="card">
+                            <a routerLink="/products/{{ tempProduct.id }}">
+                            <div class="card-img">
+                                <img
+                                    src="{{ tempProduct.imageUrl }}"
+                                    class="img-responsive"
+                                />
+                            </div>
+                            <div class="info-card">
+                                <div class="text-product">
+                                    <h3>{{ tempProduct.name }}</h3>
+                                    <!--<p class="category">Footwear, Sneakers</p>-->
+                                </div>
+                                <div class="price"> {{ tempProduct.unitPrice | currency:'Bs' }}</div>
+                            </div>
+                        </a>
+                        </div>
+                    </div> 
+    
+                        <div class="product-box">
+                            <div class="price"></div>
+                            <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
+                        </div>
+                        
+                    </div>
 
                 <!-- Si no se encutra los productos, desplegar el mensaje-->
                 <div *ngIf= "products?.length == 0" class="alert alert-warning col-md-12" role="alert">
@@ -26,6 +55,9 @@
 
             <!--comienzo del footer-->
             <div class="footer-pagination">
+                <div class="card-footer">
+                    <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                </div>
                 <div class="row">
                     <div class="col-md-6"></div>
 

@@ -33,12 +33,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductListAdminComponent } from './product-admin/product-list-admin/product-list-admin.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { ProductListEnterpriseComponent } from './components/product-list-enterprise/product-list-enterprise.component';
+import { RegisterEnterprisesComponent } from './components/auth/register-enterprises/register-enterprises.component';
 
 
 //Rutas
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'registerEnterprise', component: RegisterEnterprisesComponent},
   
   {path: 'category-enterprise/:id', component: EnterpriseListComponent},
   {path: 'category-enterprise', component: EnterpriseListComponent},
@@ -83,7 +85,8 @@ const routes: Routes = [
     ProductDetailComponent,
     ProductListAdminComponent,
     OrderHistoryComponent,
-    ProductListEnterpriseComponent
+    ProductListEnterpriseComponent,
+    RegisterEnterprisesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

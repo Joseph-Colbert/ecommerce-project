@@ -19,16 +19,36 @@
                 </ul>
             </div>
             <div class="card-body"></div>
-                <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+                <form #f="ngForm" (ngSubmit)="onRegisterEnterprise()" novalidate>
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" name="name" id="name" class="form-control"
                         [(ngModel)]="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="userName">Nombre de Usuario</label>
-                        <input type="text" name="userName" id="userName" class="form-control"
-                        [(ngModel)]="userName" required>
+                        <label for="enterpriseName">Nombre de Empresa</label>
+                        <input type="text" name="enterpriseName" id="enterpriseName" class="form-control"
+                        [(ngModel)]="enterpriseName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Direccion</label>
+                        <input type="text" name="address" id="address" class="form-control"
+                        [(ngModel)]="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Número Telefonico</label>
+                        <input type="text" name="phone" id="phone" class="form-control"
+                        [(ngModel)]="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">Imagen de la Empresa</label>
+                        <input type="text" name="imageUrl" id="imageUrl" class="form-control"
+                        [(ngModel)]="imageUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Categoria de la Empresa</label>
+                        <input type="text" name="category" id="category" class="form-control"
+                        [(ngModel)]="category" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>

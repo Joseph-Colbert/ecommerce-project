@@ -63,9 +63,13 @@
 
             </div>
 
-            <!-- si el carrito esta vacio, despllegar un mensaje-->
+            <!-- si el carrito esta vacio, desplegar un mensaje-->
             <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
                 Tu carrito de compras esta vacio.
+            </div>
+
+            <div class="card-footer">
+                <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
             </div>
 
         </div>

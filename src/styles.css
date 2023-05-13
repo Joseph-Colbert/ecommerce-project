@@ -9,7 +9,7 @@
     padding:0;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
-    box-sizing:border-box
+    box-sizing:border-box,
 }
 
 body{
@@ -17,7 +17,7 @@ body{
     font-weight:400;
     font-size:16px;
     line-height:1.625;
-    color:#666;
+    color:#f7f7f7;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale
 }
