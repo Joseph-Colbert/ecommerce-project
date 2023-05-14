@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   userName!: string;
   email!: string;
   password!: string;
+  //roles!: string;
   
   errMsj!: string;
   isLogged = false;

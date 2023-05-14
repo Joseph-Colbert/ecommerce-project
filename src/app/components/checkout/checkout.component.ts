@@ -268,8 +268,8 @@ export class CheckoutComponent implements OnInit {
     console.log("The email address is " + this.checkoutFormGroup.get('customer')!.value.email);
 
   //revisar, devuelve el resultado como undefined!!!!!! IMPORTANTE
-    console.log("The shipping address country is " + this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
-    console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress')!.value.state.name);
+    //console.log("The shipping address country is " + this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
+    //console.log("The shipping address state is " + this.checkoutFormGroup.get('shippingAddress')!.value.state.name);
     console.log(this.checkoutFormGroup.get('shippingAddress')!.value);
     //REVISAR!!!!!
   
