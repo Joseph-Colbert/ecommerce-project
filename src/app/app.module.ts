@@ -34,6 +34,8 @@ import { ProductListAdminComponent } from './product-admin/product-list-admin/pr
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { ProductListEnterpriseComponent } from './components/product-list-enterprise/product-list-enterprise.component';
 import { RegisterEnterprisesComponent } from './components/auth/register-enterprises/register-enterprises.component';
+import { SendEmailComponent } from './components/change-password/send-email/send-email.component';
+import { ChangePasswordComponent } from './components/change-password/change-password/change-password.component';
 
 
 //Rutas
@@ -41,9 +43,11 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'registerEnterprise', component: RegisterEnterprisesComponent},
+  {path: 'sendemail', component: SendEmailComponent},
+  {path: 'change-password/:tokenPassword', component: ChangePasswordComponent},
   
   {path: 'category-enterprise/:id', component: EnterpriseListComponent},
-  {path: 'category-enterprise', component: EnterpriseListComponent},
+//  {path: 'category-enterprise', component: EnterpriseListComponent},
   {path: 'enterprises', component: EnterpriseListComponent}, 
   {path: '', redirectTo: '/enterprises', pathMatch: 'full'},
   {path: 'enterprises/:idEnterprise/products', component: ProductListEnterpriseComponent},
@@ -56,7 +60,7 @@ const routes: Routes = [
   {path: 'products', component: ProductListComponent},
 
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
-  { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
+  { path: 'list', component: ProductListAdminComponent},
   { path: 'detail/:id', component: ProductDetailComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } }, //corroborar el productdetailcomponent
   { path: 'nuevo', component: NewProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
   { path: 'edit/:id', component: EditProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
@@ -86,7 +90,9 @@ const routes: Routes = [
     ProductListAdminComponent,
     OrderHistoryComponent,
     ProductListEnterpriseComponent,
-    RegisterEnterprisesComponent
+    RegisterEnterprisesComponent,
+    SendEmailComponent,
+    ChangePasswordComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -282,7 +282,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.totalQuantity.next(0);
 
     // reiniciar el formulario
-    this,this.checkoutFormGroup.reset();
+    this.checkoutFormGroup.reset();
 
     // volver a la ventana de productos
     this.router.navigateByUrl("/products")

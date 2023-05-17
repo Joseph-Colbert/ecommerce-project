@@ -35,7 +35,7 @@ export class EnterpriseListComponent implements OnInit {
   }  
 
   listProductJson() {
-    this.enterpriseService.getEnterpriseJSON().subscribe(
+    this.enterpriseService.getEnterpriseJSON.subscribe(
       ( data: Enterprise[]) => {
         console.log('Enterprise =' + JSON.stringify(data));
         this.enterprises = data;
@@ -89,19 +89,19 @@ export class EnterpriseListComponent implements OnInit {
       this.previousCategoryId = this.currentCategoryId;
 
       console.log(`currentCategoryId=${this.currentCategoryId}, thePageNumber=${this.thePageNumber}`);
-
+      console.log(this.handleListEnterprises);
 
       // Obtener los productos de la categoria dada por id, entonces set thePageNumber de vuelta a 1
-   /*   this.enterpriseService.getProductListPaginate(this.thePageNumber -1,
+      this.enterpriseService.getEnterpriseListPaginate(this.thePageNumber -1,
                                                  this.thePageSize,
                                                  this.currentCategoryId)
                                                  .subscribe(
                                                   data => {
-                                                    this.products = data._embedded.products;
+                                                    this.enterprises = data._embedded.enterprises;
                                                     this.thePageNumber = data.page.number + 1;
                                                     this.thePageSize = data.page.size;
                                                     this.theTotalElements = data.page.totalElements
                                                   }
-                                                 );*/
+                                                 );
   }
 }

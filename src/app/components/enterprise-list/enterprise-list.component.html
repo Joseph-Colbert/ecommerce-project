@@ -7,7 +7,7 @@
                 <div *ngFor= "let tempEnterprise of enterprises" class="col-md-3">
 
                     <div class="enterprise-box">
-                        <a routerLink="/enterprises/{{ tempEnterprise.id }}/products">
+                        <a routerLink="/category-enterprises/{{ tempEnterprise.id }}/products">
                             <img src="{{ tempEnterprise.imageUrl }}" class="img-responsive">
                             <h1>{{ tempEnterprise.name }}</h1>
                         </a>   

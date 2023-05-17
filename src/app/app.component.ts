@@ -11,15 +11,13 @@ export class AppComponent implements OnInit {
   title = 'angular-ecommerce';
   actualRoute: any;
 
-  constructor(private router: Router,
-              private routerService: RoutingServiceService,
-              public activatedRoute: ActivatedRoute) {
-    this.router.events.subscribe((event) => {
+  constructor(private routerService: RoutingServiceService) {
+    /*this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.actualRoute = event.url;
-        console.log(this.actualRoute);
+        console.log(this.actualRoute + "dsadadasdasdasd");
       }
-    });
+    });*/
   }
 
   ngOnInit(): void {
@@ -30,6 +28,7 @@ export class AppComponent implements OnInit {
   async rutaActualSubscribe() {
     this.routerService.route$.subscribe(res => {
       this.actualRoute = res;
+      console.log(res);
     });
   }
 }

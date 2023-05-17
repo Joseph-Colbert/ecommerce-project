@@ -21,10 +21,12 @@ export class ProdGuardService implements CanActivate {
     roles.forEach(rol => {
       if (rol === 'ROLE_ADMIN') {
         this.realRol = 'admin';
+        console.log("Hola");
       }
     });
     if (!this.tokenService.getToken() || expectedRol.indexOf(this.realRol) === -1) {
       this.router.navigate(['/']);
+      console.log("Hola1234");
       return false;
     }
     return true;
