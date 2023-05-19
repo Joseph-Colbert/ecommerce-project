@@ -44,14 +44,15 @@ export class RegisterComponent implements OnInit {
       next: data => {
         this.isRegister = true;
         this.isRegisterFail = false;
-
+        alert(`Cuenta Creada`)
 
         this.router.navigate(['/login']);
       },
       error: err => {
         this.isRegister = false;
         this.isRegisterFail = true;
-        this.errMsj = err.error.messagedto;
+        this.errMsj = err.error.messagedto; // messagedto no esta respondiendo 
+        alert(`Asegurate de introducir los datos correctamente`);
         console.log(this.errMsj);
       }
   });

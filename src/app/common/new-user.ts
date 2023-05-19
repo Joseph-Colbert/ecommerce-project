@@ -3,7 +3,7 @@ export class NewUser {
     userName!: string;
     email!: string;
     password!: string;
-   // roles!: string;
+    //authorities!: string[];
 
     constructor(name: string, userName: string, email: string, password: string) {
         this.name = name;

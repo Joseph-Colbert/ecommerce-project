@@ -45,6 +45,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.setUserName(data.userName);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
+
+        //puede ser aca la redireccion para cuando sea rol admin directamente a list
         this.router.navigate(['/enterprises']);
       },
       error: err => {

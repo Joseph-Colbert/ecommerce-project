@@ -38,12 +38,14 @@ export class NewProductComponent implements OnInit {
                                 this.unitsInStock, this.dateCreated, this.lastUpdated, this.enterprise, this.category);
       this.productService.save(product).subscribe({
         next: data => {
-          
+          alert(`Producto Creado`)
+
         
           
           this.router.navigate(['/list']);
         },
         error: err => {
+          alert(`Hubo un error`)
 
         }
     });

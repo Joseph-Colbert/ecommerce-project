@@ -6,7 +6,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HttpClientModule } from '@angular/common/http'
 import { ProductService } from './services/product.service';
 
-import { Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -60,7 +60,7 @@ const routes: Routes = [
   {path: 'products', component: ProductListComponent},
 
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
-  { path: 'list', component: ProductListAdminComponent},
+  { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'detail/:id', component: ProductDetailComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } }, //corroborar el productdetailcomponent
   { path: 'nuevo', component: NewProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
   { path: 'edit/:id', component: EditProductComponent, canActivate: [guard], data: { expectedRol: ['admin'] } },
