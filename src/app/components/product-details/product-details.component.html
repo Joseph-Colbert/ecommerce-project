@@ -27,15 +27,12 @@
 
             <div class="container-add-cart">
                 <div class="container-quantity">
-                    <input type="number" placeholder="2" value="2" min="2" max="12" class="input-quantity"/>
-                    <div class="btn-increment-decrement" >
-                <!--<i class="fa-solid fa-chevron-up" id="increment"></i>
-                        <i class="fa-solid fa-chevron-down" id="decrement"></i>-->        
+                    <input type="number"  placeholder="2" value="2" min="2" max="12" [(ngModel)]="numberOfFees" class="input-quantity"/>
+                    <div class="btn-increment-decrement" >    
                     </div>
                 </div>
-            
-                <button class="btn-add-to-cart"> 
-                    <i class="fa-solidfa-plus"></i>
+                <button class="btn-add-to-cart"  (click)="addToCart()" routerLink="/checkoutOnCredit"> 
+                    <i class="fa-solid fa-plus"></i>
                     Realizar Compra
                 </button>
             </div>
@@ -47,6 +44,19 @@
                 </div>
                 <div class="text-description">
                     <p>{{ product.description }}</p>
+                </div>
+            </div>
+
+            <div class="container-description">
+                <div class="title-description">
+                    <h4>Informacion de la Compra a Crédito</h4>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="text-description">
+                   <h6><p> Valor total de la compra: {{ (product.unitPrice  * 0.07) + product.unitPrice }} Bs</p></h6>
+                   <h6><p> Cantidad: </p></h6>
+                   <h6><p> Total de cuotas: </p></h6>
+
                 </div>
             </div>
         </div>

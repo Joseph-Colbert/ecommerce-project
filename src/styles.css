@@ -13,7 +13,7 @@
 }
 
 body{
-    font-family:Poppins,sans-serif;
+
     font-weight:400;
     font-size:16px;
     line-height:1.625;
@@ -104,15 +104,15 @@ a,a:hover{
     padding:0 35px
 }
 
-.page-wrapper{
+/* .page-wrapper{
     overflow:hidden;
     background:#e5e5e5;
     padding-bottom:8vh
-}
+} */
 
 .page-container{
-    background:#e5e5e5;
-    padding-left:200px
+   /*background:#e5e5e5;*/
+    padding-left:100px
 }
 
 .main-content{
@@ -134,15 +134,15 @@ aside.menu-sidebar.d-none.d-lg-block.clr{
  */
 
 .header-desktop{
-    background:#3f1550;
+    background: #efeff3;
     -webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
     -moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
     box-shadow:0 2px 5px 0 rgba(0,0,0,.1);
     position:fixed;
     top:0;
     right:0;
-    left:200px;
-    height:75px;
+    left:70px;
+    height:65px;
     z-index:3
 }
 
@@ -223,7 +223,7 @@ input.au-input.au-input-xl{
 }
 
 .au-input{
-    line-height:43px;
+    line-height:35px;
     border:1px solid #e5e5e5;
     font-size:14px;
     color:#666;
@@ -566,7 +566,7 @@ input.au-input.au-input-xl{
  */
 
 .form-area{
-    background:#e5e5e5;
+   /* background:#e5e5e5;*/
     position:relative;
     margin-bottom:45px;
     padding:50px 20px;

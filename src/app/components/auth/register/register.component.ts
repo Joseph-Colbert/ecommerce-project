@@ -51,8 +51,8 @@ export class RegisterComponent implements OnInit {
       error: err => {
         this.isRegister = false;
         this.isRegisterFail = true;
-        this.errMsj = err.error.messagedto; // messagedto no esta respondiendo 
-        alert(`Asegurate de introducir los datos correctamente`);
+        this.errMsj = err.error.message // messagedto no esta respondiendo 
+        alert(`Hubo un error: ` + this.errMsj);
         console.log(this.errMsj);
       }
   });

@@ -2,7 +2,9 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem } from 'src/app/common/cart-item';
+import { CartItemOnCredit } from 'src/app/common/cart-item-on-credit';
 import { Product } from 'src/app/common/product';
+import { CartOnCreditService } from 'src/app/services/cart-on-credit.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -14,8 +16,10 @@ export class ProductDetailsComponent implements OnInit {
 
   product!: Product; 
 
+  numberOfFees: number = 2;
+
   constructor(private ProductService: ProductService,
-              private cartService: CartService,
+              private cartService: CartOnCreditService,
               private route: ActivatedRoute,
               private router: Router) { }
 
@@ -37,15 +41,21 @@ export class ProductDetailsComponent implements OnInit {
     )
   }
 
+ /* incrementQuantity(theCartItem: CartItemOnCredit) {
+    this.cartService.addToCart(theCartItem);
+  }*/
+
   addToCart() {
 
-    console.log(`Adding to cart: ${this.product.name}, ${this.product.unitPrice}`);
-    const theCartitem = new CartItem(this.product);
+    console.log(`Añadiendo compra a credito: ${this.product.name}, ${this.product.unitPrice}`);
+    const theCartitem = new CartItemOnCredit(this.product);
     this.cartService.addToCart(theCartitem);
   }
 
   volver(): void {
     this.router.navigate(['/products']);
   }
+
+
 
 }

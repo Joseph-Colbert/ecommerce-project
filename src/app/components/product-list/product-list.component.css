@@ -2,7 +2,11 @@ ngs-pagination {
     --bs-pagination-active-bg: #3f1550;
 }
 
-
+a{
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  
 .container-related-products h2 {
 	text-align: center;
 	margin-bottom: 30px;

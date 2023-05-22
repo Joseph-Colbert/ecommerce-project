@@ -35,7 +35,7 @@ export class ChangePasswordComponent implements OnInit {
     this.dto = new ChangePasswordDto(this.password, this.confirmPassword, this.tokenPassword)
     this.emailPasswordService.changePassword(this.dto).subscribe({
         next:  response => {
-          alert(`Te hemos enviado un correo`);
+          alert(`Cambio de contraseña exitosa`);
           this.router.navigate(['/login']);
         },
         error: err => {

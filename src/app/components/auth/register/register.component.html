@@ -1,6 +1,76 @@
 <div class="text-center" *ngIf="isLogged; else loggedOut">
     <h4>Inicio de sesion exitoso</h4>
 </div>
+
+
+<ng-template #loggedOut>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.component.css">
+    <title>Login & Register</title>
+</head>
+<body>
+
+    <div class="container-page" id="Container">
+        <div class="login-container" id="LoginContainer">
+            <h1 class="title">Registrar Usuario</h1>
+            <br>
+            <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+                <div class="input-line-container">
+                    <label class="name-input">Nombre</label>
+                    <input type="text" name="name" id="name" class="input-line"
+                    [(ngModel)]="name" required>
+                </div>
+                <div class="input-line-container">
+                    <span class="name-input">Nombre de Usuario</span>
+                    <input type="text" name="userName" id="userName" class="input-line"
+                    [(ngModel)]="userName" required>
+                </div>
+                <div class="input-line-container">
+                    <label class="name-input">Email</label>
+                    <input type="text" name="email" id="email" class="input-line"
+                    [(ngModel)]="email" required>
+                </div>
+                <div class="input-line-container">
+                    <span class="name-input">Contraseña</span>
+                    <input type="password" name="password" id="password" class="input-line"
+                    [(ngModel)]="password" required>
+                </div>
+                <button class="button-login btn-block" [disabled]="!f.valid">Crear Cuenta</button>
+         
+
+
+            </form>
+            <p>Iniciar Sesion: <a routerLink="/login" class="gradient-text">Login</a></p>
+            <p>Registrar Empresa: <a routerLink="/registerEnterprise" class="gradient-text">Crear Cuenta</a></p>
+
+            <!-- <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">No autorizado</div> -->
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="code.js"></script>
+
+</body>
+</html> 
+
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <ng-template #loggedOut>
     <div class="container d-flex justify-content-center">
         <div class="card">
@@ -42,11 +112,11 @@
                         <input type="password" name="password" id="password" class="form-control"
                         [(ngModel)]="password" required>
                     </div>
-                  <!--  <div class="form-group">
+                  <div class="form-group">
                         <label for="roles">Role</label>
                         <input type="roles" name="roles" id="roles" class="form-control"
                         [(ngModel)]="roles" required>
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
                             <i class="fas fa-sign-in-alt"></i> Crear Cuenta</button>
@@ -54,5 +124,5 @@
                 </form>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
 

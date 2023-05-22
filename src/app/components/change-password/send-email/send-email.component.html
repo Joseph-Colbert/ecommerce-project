@@ -1,3 +1,41 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="send-email.component.css">
+        <title>Login & Register</title>
+    </head>
+    <body>
+
+        <div class="container-page" id="Container">
+            <div class="login-container" id="LoginContainer">
+                <h1 class="title">Te enviaremos un Correo</h1>
+                <br>
+                <form #f="ngForm" (ngSubmit)="onSendEmail()" novalidate>
+                    <div class="input-line-container">
+                        <span class="name-input">Nombre de Usuario o Email</span>
+                        <input type="text" name="mailTo" id="mailTo" class="input-line"
+                        [(ngModel)]="mailTo" placeholder="" required>
+                    </div>
+                    <button class="button-login btn-block" [disabled]="!f.valid" type="submit"> Enviar Correo</button>
+                </form>
+                <p>Iniciar Sesion: <a routerLink="/login" class="gradient-text">Login</a></p>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="code.js"></script>
+
+    </body>
+    </html> 
+
+
+
+
+
+
+<!-- 
 <div class="container d-flex justify-content-center margin-top">
     <div class="card">
         <div class="card-header">
@@ -34,4 +72,4 @@
 </div>
 
 
-
+ -->

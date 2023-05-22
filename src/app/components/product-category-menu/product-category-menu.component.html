@@ -1,4 +1,142 @@
-<div class="menu-sidebar-content js-scrollbar1">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Menú desplegable de la barra lateral</title>
+    <link rel="stylesheet" href="product-category-menu.component.css">
+    <!-- Link -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
+    rel='stylesheet'>
+   </head>
+<body>
+  <div class="sidebar close">
+   <a routerLink="/enterprises">
+    <div class="logo-details">
+      <i class='bx bx-exclude bx-tada' style='color:#080808'></i>
+      <span class="logo_name"style='color:#080808'>Sistemas</span>
+    </div>
+  </a>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Panel</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Panel</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-collection' ></i>
+            <span class="link_name">Categoría</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Categoría</a></li>
+          <li *ngFor= "let tempProductCategory of productCategories">
+            <a routerLink="/category/{{ tempProductCategory.id }}" routerLinkActive="active-link">
+              {{ tempProductCategory.categoryName}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Deudas</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Deudas</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span class="link_name">Compras</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li  *ngIf="isLogged"><a class="link_name" href="/order-history">Compras</a></li>
+        </ul>
+      </li>
+      <!-- 
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bxs-user-voice'></i>
+            <span class="link_name">Clientes</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#">Clientes</a></li>
+          <li><a href="#">Sub Menú 1</a></li>
+          <li><a href="#">Sub Menú 2</a></li>
+          <li><a href="#">Sub Menú 3</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-contact' ></i>
+          <span class="link_name">Contactos</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Contactos</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-edit-location'></i>
+          <span class="link_name">Sedes</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Sedes</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-cog' ></i>
+          <span class="link_name">Configuración</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">Configuración</a></li>
+        </ul>
+      </li>
+      <li>
+    <div class="profile-details">
+      <div class="profile-content">
+        <img src="image/profile.jpg" alt="profileImg">
+      </div>
+      <div class="name-job">
+        <div class="profile_name">Administrador</div>
+        <div class="job">Web Desginer</div>
+      </div>
+      <i class='bx bx-log-out' ></i>
+    </div>
+  </li> -->
+</ul>
+  </div>
+  <!-- <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Barra lateral desplegable</span>
+    </div>
+  </section>
+  <script src="enterprise-category-menu.component.ts"></script>  -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- <div class="menu-sidebar-content js-scrollbar1">
     <nav class="navbar-sidebar">
       <ul class="list-unstyled navbar-list">
 
@@ -9,4 +147,4 @@
         </li>
       </ul>
     </nav>
-  </div>
+  </div> -->

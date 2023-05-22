@@ -36,6 +36,7 @@ import { ProductListEnterpriseComponent } from './components/product-list-enterp
 import { RegisterEnterprisesComponent } from './components/auth/register-enterprises/register-enterprises.component';
 import { SendEmailComponent } from './components/change-password/send-email/send-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password/change-password.component';
+import { CheckoutOnCreditComponent } from './components/checkout-on-credit/checkout-on-credit.component';
 
 
 //Rutas
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/enterprises', pathMatch: 'full'},
   {path: 'enterprises/:idEnterprise/products', component: ProductListEnterpriseComponent},
   {path: 'checkout', component: CheckoutComponent}, 
+  {path: 'checkoutOnCredit', component: CheckoutOnCreditComponent}, 
   {path: 'cart-details', component: CartDetailsComponent}, 
   {path: 'products/:id', component: ProductDetailsComponent}, 
   {path: 'search/:keyword', component: ProductListComponent}, 
@@ -92,7 +94,8 @@ const routes: Routes = [
     ProductListEnterpriseComponent,
     RegisterEnterprisesComponent,
     SendEmailComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CheckoutOnCreditComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

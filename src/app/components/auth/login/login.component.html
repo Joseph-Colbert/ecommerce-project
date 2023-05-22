@@ -1,6 +1,74 @@
 <div class="text-center" *ngIf="isLogged; else loggedOut">
     <h4>Inicio de sesion exitoso</h4>
 </div>
+
+<!-- <video onloadedmetadata="this.muted=true" autoplay loop class= "myvideo">
+    <source src="assets/mylivewallpapers.com-Circle-of-Fire-Tanjiro.mp4">
+</video> -->
+
+
+<ng-template #loggedOut>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.component.css">
+    <title>Login & Register</title>
+</head>
+<body>
+
+    <div class="container-page" id="Container">
+        <div class="login-container" id="LoginContainer">
+            <h1 class="title">Ingresar</h1>
+            <br>
+            <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+                <div class="input-line-container">
+                    <span class="name-input">Nombre de Usuario o Email</span>
+                    <input type="text" name="userName" id="userName" class="input-line"
+                    [(ngModel)]="userName" required>
+                </div>
+                <div class="input-line-container">
+                    <span class="name-input">Contraseña</span>
+                    <input type="password" name="password" id="password" class="input-line"
+                    [(ngModel)]="password" required>
+                </div>
+                <div class="input-link">
+                    <a routerLink="/sendemail" class="gradient-text">Olvide mi Contraseña</a>
+                </div>
+
+                <button class="button-login btn-block" [disabled]="!f.valid"> Iniciar Sesión</button>
+
+
+                <div id="Register">
+                    <a routerLink="/register" class="button-second">Registrar</a>
+                </div>
+                
+
+
+            </form>
+            <p>Registrar Empresa: <a routerLink="/registerEnterprise" class="gradient-text">Crear Cuenta</a></p>
+
+            <div *ngIf="f.submitted && isLoginFail" class="alert alert-danger mt-3">No autorizado</div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="code.js"></script>
+
+</body>
+</html> 
+
+</ng-template>
+
+
+
+
+
+
+
+
+<!-- 
 <ng-template #loggedOut>
     <div class="mi">
     <div class="container d-flex justify-content-center margin-top">
@@ -43,5 +111,5 @@
         </div>
     </div>
     </div>
-</ng-template>
-
+</ng-template> 
+ -->
