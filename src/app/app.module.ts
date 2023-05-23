@@ -37,10 +37,13 @@ import { RegisterEnterprisesComponent } from './components/auth/register-enterpr
 import { SendEmailComponent } from './components/change-password/send-email/send-email.component';
 import { ChangePasswordComponent } from './components/change-password/change-password/change-password.component';
 import { CheckoutOnCreditComponent } from './components/checkout-on-credit/checkout-on-credit.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 
 //Rutas
 const routes: Routes = [
+  {path: 'inicio', component: InicioComponent},
+
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'registerEnterprise', component: RegisterEnterprisesComponent},
@@ -95,7 +98,8 @@ const routes: Routes = [
     RegisterEnterprisesComponent,
     SendEmailComponent,
     ChangePasswordComponent,
-    CheckoutOnCreditComponent
+    CheckoutOnCreditComponent,
+    InicioComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -111,6 +115,6 @@ const routes: Routes = [
               interceptorProvider,
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, InicioComponent]
 })
 export class AppModule { }

@@ -245,16 +245,16 @@ input.au-input.au-input-xl{
     font-size:22px;
     float:left;
     margin-top:16px;
-    color:#fff;
+    color:#141414;
     margin-left:15px
 }
 
 .total{
-    background:#2b9688;
-    line-height:43px;
+    background:#141414;
+    line-height:35px;
     color:#fff;
     border-radius:30px;
-    border:1px solid #2b9688;
+    border:1px solid #666;
     float:left;
     margin-top:7px;
     padding-left:17px
@@ -279,15 +279,29 @@ input.au-input.au-input-xl{
 }
 
 .au-btn-submit{
+    line-height:35px;
     position:relative;
     right:0;
     min-width:95px;
     color:#fff;
-    border:1px solid #3f1550;
+    border:1px solid #666;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:43px;
-    background:#2b9688
+    background:#141414
+}
+
+.session{
+    line-height:35px;
+    position:relative;
+    right:0;
+    min-width:140px;
+    color:#fff;
+    border:1px solid #666;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:43px;
+    background:#141414
 }
 
 .au-btn-submit:hover{
