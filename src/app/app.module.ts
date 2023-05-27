@@ -38,6 +38,7 @@ import { SendEmailComponent } from './components/change-password/send-email/send
 import { ChangePasswordComponent } from './components/change-password/change-password/change-password.component';
 import { CheckoutOnCreditComponent } from './components/checkout-on-credit/checkout-on-credit.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { DebtsComponent } from './components/debts/debts.component';
 
 
 //Rutas
@@ -63,6 +64,7 @@ const routes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
+  {path: 'debts', component: DebtsComponent},
 
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
@@ -99,7 +101,8 @@ const routes: Routes = [
     SendEmailComponent,
     ChangePasswordComponent,
     CheckoutOnCreditComponent,
-    InicioComponent
+    InicioComponent,
+    DebtsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

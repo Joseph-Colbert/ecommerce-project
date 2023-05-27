@@ -7,5 +7,5 @@ export class PurchaseOnCredit {
     customer!: Customer;
     shippingAddress!: Address;
     orderOnCredit!: OrderOnCredit;
-    orderItems!: OrderItemOnCredit[];
+    orderItemsOnCredit!: OrderItemOnCredit[];
 }

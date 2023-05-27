@@ -21,12 +21,13 @@ export class CheckoutOnCreditComponent implements OnInit {
 
   product!: Product; 
 
-  totalQuantity: number = 1;
-  totalPriceOnCredit: number = 0;
-  payment: number = 0;
+  totalQuantity!: number;
+  totalPriceOnCredit!: number;
+  payment!: number;
+  unitPrice!: number;
 
-  monthlyFeesToPay: number = 0;
-  monthlyFeesPaid: number = 0;
+  monthlyFeesToPay!: number;
+  monthlyFeesPaid!: number;
   
 
   constructor(private formBuilder: FormBuilder,
@@ -35,6 +36,7 @@ export class CheckoutOnCreditComponent implements OnInit {
     private router: Router) { }
 
     ngOnInit(): void {
+      this.reviewCartDetails();
 
       this.checkoutFormGroup! = this.formBuilder.group({
   
@@ -75,14 +77,37 @@ export class CheckoutOnCreditComponent implements OnInit {
     reviewCartDetails() {
 
     // ingresar en cartService.totalQuantity
-    this.cartService.totalQuantity.subscribe(
+    this.cartService.totalQuantity$.subscribe(
       totalQuantity => this.totalQuantity = totalQuantity
     );
 
+    // ingresar cartService.payment
+    this.cartService.monthlyFeesToPay$.subscribe(
+      monthlyFeesToPay => this.monthlyFeesToPay = monthlyFeesToPay
+    );
+
+    // ingresar cartService.payment
+    this.cartService.monthlyFeesPaid$.subscribe(
+      monthlyFeesPaid => this.monthlyFeesPaid = monthlyFeesPaid
+    );
+
+    // ingresar cartService.payment
+    this.cartService.payment$.subscribe(
+      payment => this.payment = payment
+    );
+
     // ingresar cartService.totalPrice
-    this.cartService.totalPriceOnCredit.subscribe(
+    this.cartService.unitPrice$.subscribe(
+      unitPrice => this.unitPrice = unitPrice
+    );
+
+    // ingresar cartService.totalPriceOnCredit
+    this.cartService.totalPriceOnCredit$.subscribe(
       totalPriceOnCredit => this.totalPriceOnCredit = totalPriceOnCredit
     );
+
+
+
   }
 
     
@@ -105,9 +130,14 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     // configurar orden
     let order = new OrderOnCredit();
-    order.totalPriceOnCredit = this.totalPriceOnCredit;
     order.totalQauntity = this.totalQuantity;
-    order.monthlyFeesToPay = this.monthlyFeesToPay
+    order.monthlyFeesToPay = this.monthlyFeesToPay;
+    order.monthlyFeesPaid = this.monthlyFeesPaid;
+    order.payment = this.payment;
+    order.unitPrice = this.unitPrice;
+    order.totalPriceOnCredit = this.totalPriceOnCredit;
+    
+    
 
     // obtener items 
     const cartItems = this.cartService.cartItems;
@@ -123,7 +153,20 @@ export class CheckoutOnCreditComponent implements OnInit {
  
     // completar compra - order y orderItem
     purchase.orderOnCredit = order;
-    purchase.orderItems = orderItemsOnCredit;
+    purchase.orderItemsOnCredit= orderItemsOnCredit;
+
+       // Llamar API REST desde CheckoutService
+       this.checkoutService.placeOrderOnCredit(purchase).subscribe(
+        {
+          next:  response => {
+            alert(`Su orden fue recibida.\n Número de seguimiento del pedido: ${response.orderTrackingNumber}`);
+  
+          },
+          error: err => {
+            alert(`Hubo un error: ${err.message}`);
+          }
+        }
+      );
 
   }
 

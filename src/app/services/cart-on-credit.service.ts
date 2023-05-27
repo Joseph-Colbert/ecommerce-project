@@ -15,59 +15,49 @@ export class CartOnCreditService {
 
   //subject para publicar eventos en el codigo
   totalPriceOnCredit: Subject<number> = new BehaviorSubject<number>(0);
-  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
-  payment: Subject<number> = new BehaviorSubject<number>(0);
-  monthlyFeesToPay: Subject<number> = new BehaviorSubject<number>(0);
-  monthlyFeesPaid: Subject<number> = new BehaviorSubject<number>(0);
+  totalPriceOnCredit$ = this.totalPriceOnCredit.asObservable();
 
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
+  totalQuantity$ = this.totalQuantity.asObservable();
+
+  payment: Subject<number> = new BehaviorSubject<number>(0);
+  payment$ = this.payment.asObservable();
+
+  monthlyFeesToPay: Subject<number> = new BehaviorSubject<number>(0);
+  monthlyFeesToPay$ = this.monthlyFeesToPay.asObservable();
+
+  monthlyFeesPaid: Subject<number> = new BehaviorSubject<number>(0);
+  monthlyFeesPaid$ = this.monthlyFeesPaid.asObservable();
+
+  unitPrice: Subject<number> = new BehaviorSubject<number>(0);
+  unitPrice$ = this.unitPrice.asObservable();
 
   constructor() { }
 
-  addToCart(theCartItem: CartItemOnCredit) {
+  addToCart(theCartItem: CartItemOnCredit, numberOfFees: number) {
 
-    // revisar si tenemos el item en el carrito
-    let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItemOnCredit = undefined!;
+    this.computeCartTotals(theCartItem,numberOfFees);
 
-    if (this.cartItems.length > 0) {
-      // encontrar el item en el carrito basado en el id del item
-
-      existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id)!;
-
-      // revisar si lo encontramos
-      alreadyExistsInCart = (existingCartItem != undefined);
-    }
-
-    if (alreadyExistsInCart) {
-      //incrementar la cantidad 
-      existingCartItem.quantity++;
-    } else {
-      // solo añade el item al array
-      this.cartItems.push(theCartItem); 
-    }
-
-    // calcular el precio total del carrito y la cantidad total
-    this.computeCartTotals();
   }
 
-  computeCartTotals() {
+  computeCartTotals(theCartItem: CartItemOnCredit, numberOfFees: number) {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
     let totalmonthlyFeesToPay: number = 0;
-    
-    for (let currentCartItem of this.cartItems) {
-      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
-      totalQuantityValue += currentCartItem.quantity;
-    }
+    let payment: number = ((theCartItem.unitPrice * 0.07) + theCartItem.unitPrice) / numberOfFees;
+    let totalmonthlyFeespaid: number = 0;
+    let unitPrice: number =(theCartItem.unitPrice * 0.07) + theCartItem.unitPrice;
 
-    for (let currentFees of this.numberOfFees) {
-       totalmonthlyFeesToPay += currentFees.numberOfFees;
-     }
 
     // publicar los nuevos valores // next enviara el evento
-    this.totalPriceOnCredit.next(totalPriceValue);
-    this.totalQuantity.next(totalQuantityValue);
-    this.monthlyFeesToPay.next(totalmonthlyFeesToPay)
+    this.totalQuantity.next(1);
+    this.monthlyFeesToPay.next(numberOfFees);
+    this.monthlyFeesPaid.next(totalmonthlyFeespaid);
+    this.payment.next(payment);
+    this.totalPriceOnCredit.next(theCartItem.unitPrice);
+    this.unitPrice.next(unitPrice);
+
+  
 
     // for debugging
     this.logCartData(totalPriceValue, totalQuantityValue, totalmonthlyFeesToPay);

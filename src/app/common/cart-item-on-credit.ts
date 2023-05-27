@@ -5,10 +5,13 @@ export class CartItemOnCredit {
     name: string;
     imageUrl: string;
     unitPrice: number;
+    quantity: number;
+
     unitPriceOnCredit!: number;
     monthlyFees!: number;
     numberOfFees!: number;
-    quantity: number;
+    payment!: number;
+   
 
     constructor(product: Product) {
         this.id = product.id;
@@ -22,4 +25,12 @@ export class CartItemOnCredit {
         this.quantity = 1;
 
     }
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductCategory } from 'src/app/common/product-category';
 import { ProductService } from 'src/app/services/product.service';
@@ -14,7 +15,8 @@ export class ProductCategoryMenuComponent implements OnInit {
   isLogged = false;
 
   constructor(private productService: ProductService,
-              private tokenService: TokenService) { }
+              private tokenService: TokenService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -36,6 +38,11 @@ export class ProductCategoryMenuComponent implements OnInit {
       }
     );
   }
+
+  debts(): void {
+    this.router.navigate(['/debts']);
+  }
+  
   
 
 }

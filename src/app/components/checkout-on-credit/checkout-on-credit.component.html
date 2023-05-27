@@ -155,14 +155,15 @@
 
                     <p>Cantidad Total: {{ totalQuantity }}</p>
                     <p>Numero de cuotas mensuales: {{ monthlyFeesToPay }}</p>
-                    <p>Primer Pago: {{ totalPriceOnCredit | currency: 'Bs ' }}</p>
+                    <p>Numero de cuotas mensuales pagadas: {{ monthlyFeesPaid}}</p>
+                    <p>Primer Pago: {{ payment | currency: 'Bs ' }}</p>
                     <p>Precio Total: {{ totalPriceOnCredit | currency: 'Bs ' }}</p>
-                    <p>Precio Total a Cr: {{ totalPriceOnCredit | currency: 'Bs ' }}</p>
+                    <p>Precio Total a Credito: {{ unitPrice | currency: 'Bs ' }}</p>
                 </div>
 
                 <!--boton para enviar-->  
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Comprar</button>
+                    <button type="submit" class="btn btn-primary" (click)="onSubmit()">Comprar</button>
 
                     <div class="card-footer">
                         <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>

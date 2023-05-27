@@ -49,7 +49,7 @@ export class ProductDetailsComponent implements OnInit {
 
     console.log(`Añadiendo compra a credito: ${this.product.name}, ${this.product.unitPrice}`);
     const theCartitem = new CartItemOnCredit(this.product);
-    this.cartService.addToCart(theCartitem);
+    this.cartService.addToCart(theCartitem, this.numberOfFees);
   }
 
   volver(): void {

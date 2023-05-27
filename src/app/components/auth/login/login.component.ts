@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   errMsj!: string;
 
-  //storage: Storage = sessionStorage;
+  storage: Storage = sessionStorage;   // Referencia al session storage del navegador
 
   constructor( 
     private tokenService: TokenService,
