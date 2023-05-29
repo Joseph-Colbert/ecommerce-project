@@ -39,10 +39,6 @@ export class ProductCategoryMenuComponent implements OnInit {
     );
   }
 
-  debts(): void {
-    this.router.navigate(['/debts']);
-  }
-  
-  
+
 
 }

@@ -3,12 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { OrderItemOnCredit } from 'src/app/common/order-item-on-credit';
 import { OrderOnCredit } from 'src/app/common/order-on-credit';
+import { PaymentInfo } from 'src/app/common/payment-info';
 import { Product } from 'src/app/common/product';
 import { PurchaseOnCredit } from 'src/app/common/purchase-on-credit';
 import { CartOnCreditService } from 'src/app/services/cart-on-credit.service';
 import { CheckoutOnCreditService } from 'src/app/services/checkout-on-credit.service';
 import { ShopFormService } from 'src/app/services/shop-form.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-checkout-on-credit',
@@ -29,6 +31,14 @@ export class CheckoutOnCreditComponent implements OnInit {
   monthlyFeesToPay!: number;
   monthlyFeesPaid!: number;
   
+  storage: Storage = sessionStorage;
+
+  // inicializar la api de stripe
+  stripe = Stripe(environment.stripePublishableKey);
+
+    paymentInfo: PaymentInfo = new PaymentInfo();
+    cardElement: any;
+    displayError: any = "";
 
   constructor(private formBuilder: FormBuilder,
     private cartService: CartOnCreditService,
@@ -36,6 +46,10 @@ export class CheckoutOnCreditComponent implements OnInit {
     private router: Router) { }
 
     ngOnInit(): void {
+
+      // configuracion de formulario de pagos de stripe
+      this.setupStripePaymentForm();
+
       this.reviewCartDetails();
 
       this.checkoutFormGroup! = this.formBuilder.group({
@@ -73,6 +87,34 @@ export class CheckoutOnCreditComponent implements OnInit {
       });
 
     }
+
+    setupStripePaymentForm() {
+    
+      // conseguir un encabezado a los elementos de stripe
+      var elements = this.stripe.elements();
+  
+      // crear el elemento card... y ocultar el campo zip-code
+      this.cardElement = elements.create('card', { hidePostalCode: true});
+  
+      // añadir a la instancia card el componente UI en el 'card-element' div
+      this.cardElement.mount('#card-element');
+  
+      // añadir el evento binding para el 'change' en el elemento card 
+      this.cardElement.on('change', (event: any) => {
+  
+        // obtener un identificador para el elemento card-errors
+        this.displayError = document.getElementById('card-errors');
+  
+        if (event.complete) {
+          this.displayError.textContent = "";
+        } else if (event.error) {
+          //mostrar la validacion de error al cliente
+          this.displayError.textContent = event.error.message;
+        }
+      });
+  
+    }
+  
 
     reviewCartDetails() {
 
@@ -155,19 +197,44 @@ export class CheckoutOnCreditComponent implements OnInit {
     purchase.orderOnCredit = order;
     purchase.orderItemsOnCredit= orderItemsOnCredit;
 
-       // Llamar API REST desde CheckoutService
-       this.checkoutService.placeOrderOnCredit(purchase).subscribe(
-        {
-          next:  response => {
-            alert(`Su orden fue recibida.\n Número de seguimiento del pedido: ${response.orderTrackingNumber}`);
-  
-          },
-          error: err => {
-            alert(`Hubo un error: ${err.message}`);
-          }
-        }
-      );
+    // si el formulario es valido entonces
+    // crear el intento de pago
+    // confirmar el pago con la tarjeta
+    // realizar pedido
 
+    if (!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
+
+      this.checkoutService.createPaymentIntentOnCredit(this.paymentInfo).subscribe(
+        (paymentIntentResponse) => {
+          this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
+            {
+              payment_method: {
+                card: this.cardElement
+              }
+            }, { handleActions: false })
+            .then((result: any) => {
+              if (result.error) {
+                // informar al cliente que hubo un error 
+                alert(`Hubo un error: ${result.error.message}`);
+              } else {
+                // llamar a la API REST via CheckoutService
+                this.checkoutService.placeOrderOnCredit(purchase).subscribe({
+                  next: (response: any) => {
+                    alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
+
+                  },
+                  error: (err: any) => {
+                    alert(`Hubo un error: ${err.message}`);
+                  }
+                })
+              }
+            });
+          }
+        );
+    } else {
+      this.checkoutFormGroup.markAllAsTouched();
+      return;
+    }
   }
 
   volver(): void {

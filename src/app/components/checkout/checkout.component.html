@@ -12,65 +12,17 @@
 
                     <h3>Cliente</h3>
 
-                    <div class="row">
-                        <div class="col-md-2"> <label>Nombre</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="firstName" type="text">
-
-                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger mt-1">
-
-                                    <div *ngIf="firstName.errors?.['required'] || firstName.errors?.['notOnlyWhitespace']">
-                                        Se requiere el primer nombre  
-                                    </div>
-
-                                    <div *ngIf="firstName.errors?.['minlength']">
-                                        El primer Nombre debe tener por lo menos dos caracteres
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
-                        <div class="col-md-2"> <label>Apellidos</label></div>
+                        <div class="col-md-2"> <label>Nombre de Usuario</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="lastName" type="text">
-         
-                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger mt-1">
+                                <input formControlName="userName" type="text">
 
-                                    <div *ngIf="lastName.errors?.['required'] || lastName.errors?.['notOnlyWhitespace']">
-                                        Se requiere el apellido
+                                    <div *ngIf="userName.errors?.['required']">
+                                        Se requiere el Nombre de Usuario 
                                     </div>
-
-                                    <div *ngIf="lastName.errors?.['minlength']">
-                                       El apellido debe tener por lo menos dos caracteres
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-2"> <label>Email</label></div>
-                        <div class="col-md-9">
-                            <div class="input-space">
-                                <input formControlName="email" type="text">
-    
-                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-1">
-
-                                    <div *ngIf="email.errors?.['required']">
-                                        Se requiere el email  
-                                    </div>
-
-                                    <div *ngIf="email.errors?.['pattern']">
-                                        Se debe validar el email con el fomrmato respectivo
-                                    </div>
-
-                                </div>
+     
                             </div>
                         </div>
                     </div>
@@ -317,7 +269,7 @@
                 <div formGroupName="creditCard" class="form-area">
                     <h3>Tarjeta de credito o Debito</h3>
 
-                    <div id="card-element">
+                    <div id="card-element" postal_code>
                         <!--Los elementos de stripe se insertaran aca-->
                     </div>
 

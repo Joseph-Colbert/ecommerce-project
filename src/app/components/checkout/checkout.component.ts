@@ -1,3 +1,4 @@
+import { CustomersService } from './../../services/customers.service';
 import { PaymentInfo } from './../../common/payment-info';
 import { CheckoutService } from './../../services/checkout.service';
 import { ShopFormService } from './../../services/shop-form.service';
@@ -10,6 +11,7 @@ import { OrderItem } from 'src/app/common/order-item';
 import { Purchase } from 'src/app/common/purchase';
 //import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
+import { TokenService } from 'src/app/services/token.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 import { environment } from 'src/environments/environment';
 
@@ -21,6 +23,8 @@ import { environment } from 'src/environments/environment';
 export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup!: FormGroup;
+
+  user: any;
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -46,9 +50,22 @@ export class CheckoutComponent implements OnInit {
               private shopFormService: ShopFormService,
               private cartService: CartService,
               private checkoutService: CheckoutService,
-              private router: Router) { }
+              private router: Router,
+              private token: TokenService,
+              private customerService: CustomersService) { }
+
+  userInfo(): void {
+    const userName = this.token.getUserName();
+    this.customerService.customer(userName).subscribe(value=>{
+      this.user = value;  
+      console.log(value);
+    });
+    
+  }
 
   ngOnInit(): void {
+
+    this.userInfo();
 
     // configuracion de formulario de pagos de stripe
     this.setupStripePaymentForm();
@@ -62,18 +79,12 @@ export class CheckoutComponent implements OnInit {
     this.checkoutFormGroup! = this.formBuilder.group({
 
       customer: this.formBuilder.group({
-        firstName: new FormControl('',
+        
+        userName: new FormControl(this.token.getUserName(),
                                   [Validators.required, 
-                                   Validators.minLength(2), 
-                                   ShopValidators.notOnlyWhitespace]),
-        lastName: new FormControl('',
-                                  [Validators.required, 
-                                   Validators.minLength(2), 
-                                   ShopValidators.notOnlyWhitespace]),
-        email: new FormControl(theEmail,
-                              [Validators.required, 
-                               Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
-      }),
+                                  Validators.minLength(2), 
+                                  ShopValidators.notOnlyWhitespace])
+          }),
 
       shippingAddress: this.formBuilder.group({
         street: new FormControl('',
@@ -172,8 +183,25 @@ export class CheckoutComponent implements OnInit {
     // conseguir un encabezado a los elementos de stripe
     var elements = this.stripe.elements();
 
+    //
+    const style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
     // crear el elemento card... y ocultar el campo zip-code
-    this.cardElement = elements.create('card', { hidePostalCode: true});
+    this.cardElement = elements.create('card', { hidePostalCode: true, style: style});
 
     // añadir a la instancia card el componente UI en el 'card-element' div
     this.cardElement.mount('#card-element');
@@ -208,9 +236,8 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  get firstName() { return this.checkoutFormGroup.get('customer.firstName')!; }
-  get lastName() { return this.checkoutFormGroup.get('customer.lastName')!; }
-  get email() { return this.checkoutFormGroup.get('customer.email')!; }
+  get userName() { return this.checkoutFormGroup.get('customer.userName')!; }
+
 
   get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street')!; }
   get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city')!; }
@@ -268,7 +295,7 @@ export class CheckoutComponent implements OnInit {
     let purchase = new Purchase();
 
     // completar compra - customer
-    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+    purchase.customer = this.user;
  
     // completar compra - shipping address
    /* purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;

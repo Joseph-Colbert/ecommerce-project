@@ -9,7 +9,7 @@
    </head>
 <body>
   <div class="sidebar close">
-   <a routerLink="/enterprises">
+   <a routerLink="/inicio">
     <div class="logo-details">
       <i class='bx bx-exclude bx-tada' style='color:#080808'></i>
       <span class="logo_name"style='color:#080808'>Sistemas</span>
@@ -17,12 +17,12 @@
   </a>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="/enterprises">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name">Panel</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#">Panel</a></li>
+          <li><a class="link_name" href="/enterprises">Panel</a></li>
         </ul>
       </li>
       <li>
@@ -43,19 +43,19 @@
         </ul>
       </li>
       <li>
-        <div class="iocn-link">
-          <a href="#">
-            <i class='bx bx-book-alt' ></i>
-            <span class="link_name">Deudas</span>
-          </a>
-          <i class='bx bxs-chevron-down arrow' ></i>
-        </div>
-        <ul class="sub-menu">
-          <li><a class="link_name" href="#">Deudas</a></li>
-        </ul>
-      </li>
+      <div class="iocn-link">
+        <a routerLink="/debts">
+          <i class='bx bx-book-alt' ></i>
+          <span class="link_name">Deudas</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow' ></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" routerLink="/debts">Deudas</a></li>
+      </ul>
+    </li>
       <li>
-        <a href="#">
+        <a routerLink="/order-history">
           <i class='bx bx-pie-chart-alt-2' ></i>
           <span class="link_name">Compras</span>
         </a>
