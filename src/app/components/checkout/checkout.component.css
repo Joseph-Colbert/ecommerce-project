@@ -12,3 +12,12 @@
   #card-element .StripeElement--invalid {
     border-color: #fa755a;
   }
+  
+  #card-number::before {
+    content: '•••• ';
+  }
+  
+  #card-number::after {
+    content: ' •••• •••• ••••';
+  }
+  

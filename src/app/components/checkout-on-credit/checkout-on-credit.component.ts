@@ -8,7 +8,10 @@ import { Product } from 'src/app/common/product';
 import { PurchaseOnCredit } from 'src/app/common/purchase-on-credit';
 import { CartOnCreditService } from 'src/app/services/cart-on-credit.service';
 import { CheckoutOnCreditService } from 'src/app/services/checkout-on-credit.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
+import { CustomersService } from 'src/app/services/customers.service';
 import { ShopFormService } from 'src/app/services/shop-form.service';
+import { TokenService } from 'src/app/services/token.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 import { environment } from 'src/environments/environment';
 
@@ -22,6 +25,8 @@ export class CheckoutOnCreditComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
 
   product!: Product; 
+
+  user: any;
 
   totalQuantity!: number;
   totalPriceOnCredit!: number;
@@ -41,11 +46,24 @@ export class CheckoutOnCreditComponent implements OnInit {
     displayError: any = "";
 
   constructor(private formBuilder: FormBuilder,
-    private cartService: CartOnCreditService,
-    private checkoutService: CheckoutOnCreditService,
-    private router: Router) { }
+              private cartService: CartOnCreditService,
+              private checkoutServiceOnCredit: CheckoutOnCreditService,
+              private checkoutService: CheckoutService,
+              private router: Router,
+              private token: TokenService,
+              private customerService: CustomersService) { }
+
+    userInfo(): void {
+      const userName = this.token.getUserName();
+      this.customerService.customer(userName).subscribe(value=>{
+        this.user = value;  
+        console.log(value);
+      });
+    }
 
     ngOnInit(): void {
+
+      this.userInfo();
 
       // configuracion de formulario de pagos de stripe
       this.setupStripePaymentForm();
@@ -55,17 +73,10 @@ export class CheckoutOnCreditComponent implements OnInit {
       this.checkoutFormGroup! = this.formBuilder.group({
   
         customer: this.formBuilder.group({
-          firstName: new FormControl('',
-                                    [Validators.required, 
-                                     Validators.minLength(2), 
-                                     ShopValidators.notOnlyWhitespace]),
-          lastName: new FormControl('',
-                                    [Validators.required, 
-                                     Validators.minLength(2), 
-                                     ShopValidators.notOnlyWhitespace]),
-          email: new FormControl('',
-                                [Validators.required, 
-                                 Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
+          userName: new FormControl(this.token.getUserName(),
+          [Validators.required, 
+          Validators.minLength(2), 
+          ShopValidators.notOnlyWhitespace])      
         }),
   
         shippingAddress: this.formBuilder.group({
@@ -153,9 +164,7 @@ export class CheckoutOnCreditComponent implements OnInit {
   }
 
     
-  get firstName() { return this.checkoutFormGroup.get('customer.firstName')!; }
-  get lastName() { return this.checkoutFormGroup.get('customer.lastName')!; }
-  get email() { return this.checkoutFormGroup.get('customer.email')!; }
+  get userName() { return this.checkoutFormGroup.get('customer.userName')!; }
 
   get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street')!; }
   get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city')!; }
@@ -191,11 +200,18 @@ export class CheckoutOnCreditComponent implements OnInit {
     let purchase = new PurchaseOnCredit();
 
     // completar compra - customer
-    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+    purchase.customer = this.user;
  
     // completar compra - order y orderItem
     purchase.orderOnCredit = order;
     purchase.orderItemsOnCredit= orderItemsOnCredit;
+
+    // calcular la inforacion de pago
+    this.paymentInfo.amount = Math.round(this.payment * 100);
+    this.paymentInfo.currency = "USD";
+
+    console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
+
 
     // si el formulario es valido entonces
     // crear el intento de pago
@@ -204,7 +220,7 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     if (!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
 
-      this.checkoutService.createPaymentIntentOnCredit(this.paymentInfo).subscribe(
+      this.checkoutServiceOnCredit.createPaymentIntentOnCredit(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
             {
@@ -218,7 +234,7 @@ export class CheckoutOnCreditComponent implements OnInit {
                 alert(`Hubo un error: ${result.error.message}`);
               } else {
                 // llamar a la API REST via CheckoutService
-                this.checkoutService.placeOrderOnCredit(purchase).subscribe({
+                this.checkoutServiceOnCredit.placeOrderOnCredit(purchase).subscribe({
                   next: (response: any) => {
                     alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
 

@@ -60,7 +60,7 @@ export class CheckoutComponent implements OnInit {
       this.user = value;  
       console.log(value);
     });
-    
+                                                                         
   }
 
   ngOnInit(): void {
@@ -283,7 +283,7 @@ export class CheckoutComponent implements OnInit {
     // configurar orden
     let order = new Order();
     order.totalPrice = this.totalPrice;
-    order.totalQauntity = this.totalQuantity;
+    order.totalQuantity = this.totalQuantity;
 
     // obtener items 
     const cartItems = this.cartService.cartItems;
@@ -316,8 +316,10 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItems = orderItems;
 
     // calcular la inforacion de pago
-    this.paymentInfo.amount = this.totalPrice * 100;
-    this.paymentInfo.currency = "usd";
+    this.paymentInfo.amount = Math.round(this.totalPrice * 100);
+    this.paymentInfo.currency = "USD";
+
+console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 
     // si el formulario es valido entonces
     // crear el intento de pago
@@ -331,7 +333,17 @@ export class CheckoutComponent implements OnInit {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
             {
               payment_method: {
-                card: this.cardElement
+                card: this.cardElement,
+                billing_details: {
+                  name: `${this.userName}`,
+                  address: {
+                    lineal: purchase.shippingAddress.street,
+                    city: purchase.shippingAddress.city,
+                    postal_code: purchase.shippingAddress.zipCode
+                  }
+
+                }
+               
               }
             }, { handleActions: false })
             .then((result: any) => {
@@ -378,6 +390,7 @@ export class CheckoutComponent implements OnInit {
     this.cartService.cartItems = [];
     this.cartService.totalPrice.next(0);
     this.cartService.totalQuantity.next(0);
+    this.cartService.persistCartItems(); // para cuando se haga un a compra no se mantenga en la sesion los ultimos productos del carrito
 
     // reiniciar el formulario
     this.checkoutFormGroup.reset();

@@ -10,7 +10,9 @@ import { PaymentInfo } from '../common/payment-info';
 export class CheckoutOnCreditService {
 
   private purchaseUrl = 'http://localhost:8080/api/checkout/purchaseoncredit';
-  private paymentIntentUrl = 'http://localhost:8080/api/checkout/payment-intent';
+  
+  private paymentIntentUrl = 'http://localhost:8080/api/checkout/payment-intent-on-credit';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,5 +24,5 @@ export class CheckoutOnCreditService {
     return this.httpClient.post<PaymentInfo>(this.paymentIntentUrl, paymentInfo);
   }
 
-  
+
 }

@@ -50,4 +50,9 @@ export class NewProductComponent implements OnInit {
         }
     });
   }
+
+  volver(): void {
+    this.router.navigate(['/list']);
+  }
+
 }
