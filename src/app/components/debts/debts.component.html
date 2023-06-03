@@ -12,13 +12,14 @@
                         <th scope="col">Nro de Cuotas Pagadas</th>
                         <th scope="col">Pago</th>
                         <th scope="col">Precio Total</th>
-                        <th scope="col">Pagar</th>
                         <th scope="col">Fecha de compra</th>
                         <th scope="col">Fecha ultimo pago</th>
+                        <th scope="col">Ir a Pagar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let tempDebtsHistory of debtsHistoryList">
+                        <td>{{tempDebtsHistory.image_url}}</td>
                         <td>{{tempDebtsHistory.orderTrackingNumber}}</td>
                         <td>{{tempDebtsHistory.totalQuantity}}</td>
                         <td>{{tempDebtsHistory.numberOfFeesToPay}}</td>
@@ -27,7 +28,7 @@
                         <td>{{tempDebtsHistory.totalPriceOnCredit}}</td>
                         <td>{{tempDebtsHistory.dateCreated}}</td>
                         <td>{{tempDebtsHistory.lastUpdated}}</td>
-                        <td><button class="btn btn-outline-success" routerLink="/editar"><i class="far fa-edit"></i> Editar</button></td>
+                        <td><button class="btn btn-outline-success" routerLink="/editar"><i class="far fa-edit"></i> Pagar</button></td>
                     </tr>
                 </tbody>
             </table>

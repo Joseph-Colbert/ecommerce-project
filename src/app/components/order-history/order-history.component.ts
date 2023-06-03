@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderHistory } from 'src/app/common/order-history';
 import { OrderHistoryService } from 'src/app/services/order-history.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -14,22 +15,24 @@ export class OrderHistoryComponent implements OnInit {
   storage: Storage = sessionStorage;
 
   constructor(private orderHistoryService: OrderHistoryService, 
-    private token: TokenService) { }
+              private router: Router,
+              private token: TokenService) { }
 
   ngOnInit(): void {
     this.handleOrderHistory();
   }
   handleOrderHistory() {
   
-
     const userName = this.token.getUserName();
 
-    // obtener datos delsde el service
+    // obtener datos desde el service
     this.orderHistoryService.getOrderHistory(userName).subscribe(
       data => {
         this.orderHistoryList = data._embedded.orders;
       }
     );
   }
-
+  volver(): void {
+    this.router.navigate(['/products']);
+  }
 }

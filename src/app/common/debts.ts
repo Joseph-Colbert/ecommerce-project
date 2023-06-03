@@ -1,5 +1,6 @@
 export class Debts {
     constructor(public id: string,
+        public image_url: string,
         public orderTrackingNumber: string,
         public totalQuantity: number,
         public numberOfFeesToPay: number,

@@ -20,6 +20,6 @@ export class DebtsService {
 
 interface GetResponseDebts {
   _embedded: {
-    debts: Debts[];
+    orderOnCredits: Debts[];
   }
 }

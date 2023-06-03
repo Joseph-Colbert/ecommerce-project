@@ -19,17 +19,17 @@ export class DebtsComponent implements OnInit {
               private token: TokenService) { }
 
   ngOnInit(): void {
-
+    this.handleDebts();
   }
 
   handleDebts() {
     
       const userName = this.token.getUserName();
 
-      // obtener datos delsde el service
+      // obtener datos desde el service
       this.debtsHistoryService.getDebtsHistory(userName).subscribe(
         data => {
-          this.debtsHistoryList = data._embedded.debts;
+          this.debtsHistoryList = data._embedded.orderOnCredits;
         }
       );
     }
