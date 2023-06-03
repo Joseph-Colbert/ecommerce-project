@@ -25,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
 
   user: any;
+  mail: any;
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -46,6 +47,8 @@ export class CheckoutComponent implements OnInit {
   cardElement: any;
   displayError: any = "";
 
+  isDisabled: boolean = false;
+
   constructor(private formBuilder: FormBuilder,
               private shopFormService: ShopFormService,
               private cartService: CartService,
@@ -59,9 +62,16 @@ export class CheckoutComponent implements OnInit {
     this.customerService.customer(userName).subscribe(value=>{
       this.user = value;  
       console.log(value);
-    });
-                                                                         
+    });                                                                   
   }
+
+  // userEmailInfo(): void {
+  //   const mail = this.token.getUserName(); // cambiar y crear para el email
+  //   this.customerService.customer(mail).subscribe(value=>{
+  //     this.mail = value;  
+  //     console.log(value);
+  //   });                                                                   
+  // }
 
   ngOnInit(): void {
 
@@ -313,13 +323,17 @@ export class CheckoutComponent implements OnInit {
 
     // completar compra - order y orderItem
     purchase.order = order;
+    console.log(`${purchase.order}`);
     purchase.orderItems = orderItems;
 
     // calcular la inforacion de pago
     this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = "USD";
 
-console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
+    //this.paymentInfo.receipEmail = purchase.customer.email;
+
+    console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
+    console.log(`this.paymentInfo.amount: ${this.paymentInfo}`);
 
     // si el formulario es valido entonces
     // crear el intento de pago
@@ -328,6 +342,7 @@ console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 
     if (!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
 
+      this.isDisabled = true;
       this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
@@ -335,11 +350,11 @@ console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
               payment_method: {
                 card: this.cardElement,
                 billing_details: {
-                  name: `${this.userName}`,
+                  name: this.checkoutFormGroup.get('customer.userName')?.value,
                   address: {
-                    lineal: purchase.shippingAddress.street,
-                    city: purchase.shippingAddress.city,
-                    postal_code: purchase.shippingAddress.zipCode
+                    line1: this.checkoutFormGroup.get('shippingAddress.street')?.value,
+                    city: this.checkoutFormGroup.get('shippingAddress.city')?.value,
+                    postal_code: this.checkoutFormGroup.get('shippingAddress.zipCode')?.value
                   }
 
                 }
@@ -350,6 +365,7 @@ console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
               if (result.error) {
                 // informar al cliente que hubo un error 
                 alert(`Hubo un error: ${result.error.message}`);
+                this.isDisabled = false;
               } else {
                 // llamar a la API REST via CheckoutService
                 this.checkoutService.placeOrder(purchase).subscribe({
@@ -358,9 +374,11 @@ console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 
                     // limpiamos el carrito
                     this.resetCart();
+                    this.isDisabled = false;
                   },
                   error: (err: any) => {
                     alert(`Hubo un error: ${err.message}`);
+                    this.isDisabled = false;
                   }
                 })
               }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Debts } from 'src/app/common/debts';
+import { DebtsService } from 'src/app/services/debts.service';
 import { TokenService } from 'src/app/services/token.service';
 
 @Component({
@@ -9,29 +11,34 @@ import { TokenService } from 'src/app/services/token.service';
 })
 export class DebtsComponent implements OnInit {
 
-  constructor(private router: Router,
+  debtsHistoryList: Debts[] = [];
+  storage: Storage = sessionStorage;
+
+  constructor(private debtsHistoryService: DebtsService,
+              private router: Router,
               private token: TokenService) { }
 
   ngOnInit(): void {
-    
+
   }
-/*
+
   handleDebts() {
     
-  const userName = this.token.getUserName();
+      const userName = this.token.getUserName();
 
-  // obtener datos delsde el service
-  this.d.getOrderHistory(userName).subscribe(
-    data => {
-      this.orderHistoryList = data._embedded.orders;
+      // obtener datos delsde el service
+      this.debtsHistoryService.getDebtsHistory(userName).subscribe(
+        data => {
+          this.debtsHistoryList = data._embedded.debts;
+        }
+      );
     }
-  );
-}
 
-  }*/
-
-
+    
   volver(): void {
     this.router.navigate(['/products']);
   }
 }
+
+
+

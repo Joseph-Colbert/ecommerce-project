@@ -19,4 +19,9 @@ private customers = 'http://localhost:8080/api/customers';
     const customer= `${this.customers}/${userName}`;
     return this.httpClient.get<any>(customer);
   }
+
+  // email(mail: string) {
+  //   const customerEmail= `${this.customers}/${mail}`;
+  //   return this.httpClient.get<any>(mail);
+  // }
 }

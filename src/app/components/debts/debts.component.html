@@ -1,78 +1,44 @@
-<div class="main-content">
-    <div class="section-content section-content-p30">
-        <div class="container-fluid">
+<div class="container">
+    <h3>Tus Deudas</h3>
 
-            <!-- <div *ngIf="cartItems.length > 0"> -->
-  <div>
-              
+         <div *ngIf="debtsHistoryList.length > 0"> 
                 <table class="table table-bordered">
-                    <tr>
-                        <th width="10%">Imagen del Producto</th>
-                        <th width="10%">Número de Segumiento</th>
-                        <th width="10%">Cantidad</th>
-                        <th width="10%">Nro de Cuotas</th>
-                        <th width="10%">Nro de Cuotas Pagadas</th>
-                        <th width="10%">Pago</th>
-                        <th width="10%">Precio Total</th>
-                        <th width="10%">Pagar</th>
+                    <thead>
+                      <tr>
+                        <th scope="col">Imagen del Producto</th>
+                        <th scope="col">Número de Segumiento</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Nro de Cuotas</th>
+                        <th scope="col">Nro de Cuotas Pagadas</th>
+                        <th scope="col">Pago</th>
+                        <th scope="col">Precio Total</th>
+                        <th scope="col">Pagar</th>
+                        <th scope="col">Fecha de compra</th>
+                        <th scope="col">Fecha ultimo pago</th>
                     </tr>
-
-                <tr>    <!-- <tr *ngFor="let tempCartItem of cartItems"> -->
-                        <td>
-                            <!-- <img src="{{ tempCartItem.imageUrl }}" class="img-responsive" width="150px" /> -->
-                        </td>
-                        <td>
-                            <!-- <p>{{ tempCartItem.name }}</p>
-                            <p>{{ tempCartItem.unitPrice | currency: 'Bs'}}</p> -->
-                        </td>
-                        <td>
-                            <div class="items">
-                 
-
-                                <div class="row no-guntters">
-                             
-
-                                    <div class="col ml-4 mr-2">
-                                        <!-- {{ tempCartItem.quantity }} -->
-                                    </div>
-                                    
-
-                                       
-                                    <div class="col-8"></div>    
-
-                                </div>
-                            </div>
-                        </td>
-
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tempDebtsHistory of debtsHistoryList">
+                        <td>{{tempDebtsHistory.orderTrackingNumber}}</td>
+                        <td>{{tempDebtsHistory.totalQuantity}}</td>
+                        <td>{{tempDebtsHistory.numberOfFeesToPay}}</td>
+                        <td>{{tempDebtsHistory.numberOfFeesPaid}}</td>
+                        <td>{{tempDebtsHistory.totalPrice}}</td>
+                        <td>{{tempDebtsHistory.totalPriceOnCredit}}</td>
+                        <td>{{tempDebtsHistory.dateCreated}}</td>
+                        <td>{{tempDebtsHistory.lastUpdated}}</td>
                         <td><button class="btn btn-outline-success" routerLink="/editar"><i class="far fa-edit"></i> Editar</button></td>
                     </tr>
+                </tbody>
+            </table>
+          </div>
 
-                    <!-- <tr>
-                        <td colspan="2"></td>
-                        <td style="font-weight: bold">
-                             <p>Cantidad Total: {{ totalQuantity }}</p>
-                            <p>Precio Total: {{ totalPrice | currency: 'Bs ' }}</p> 
-                            <a routerLink="/checkout" class="btn btn-info">Realizar Pago</a>
-                        </td>                   
-                    </tr> -->
-                </table>
-
-            </div>
-
-            <!-- si el carrito esta vacio, desplegar un mensaje-->
-            <!-- <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
-                Tu carrito de compras esta vacio.
-            </div> -->
-
-            <div class="card-footer">
-                <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
-            </div>
-
-        </div>
+        <!-- si el historial de deudas esta vacio, desplegar mensaje -->
+    <div *ngIf="debtsHistoryList.length== 0" class="alert alert-warning col-md-12" role="alert">
+        No se encontraron deudas.
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
     </div>
 </div>
 

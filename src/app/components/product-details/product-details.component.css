@@ -10,7 +10,7 @@
 }
 
 body{
-    font-family: 'Ubuntu';  
+
     max-width: 1200px;  
     margin: 0 auto;
 }
@@ -256,4 +256,38 @@ footer {
 	background-color: #eee;
 	margin-top: 50px;
 	color: #222;
+}
+
+.button-login{
+    width: 30%;
+    height: 45px;
+    border-radius: 55px;
+    background: #437f79;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+.button-second{
+    width: 40%;
+    height: 45px;
+    border-radius: 55px;
+    background: #1d5167;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: 2px solid white;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

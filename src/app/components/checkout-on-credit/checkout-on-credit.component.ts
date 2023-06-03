@@ -45,6 +45,8 @@ export class CheckoutOnCreditComponent implements OnInit {
     cardElement: any;
     displayError: any = "";
 
+    isDisabled: boolean = false;
+
   constructor(private formBuilder: FormBuilder,
               private cartService: CartOnCreditService,
               private checkoutServiceOnCredit: CheckoutOnCreditService,
@@ -56,8 +58,9 @@ export class CheckoutOnCreditComponent implements OnInit {
     userInfo(): void {
       const userName = this.token.getUserName();
       this.customerService.customer(userName).subscribe(value=>{
-        this.user = value;  
         console.log(value);
+        this.user = value;  
+        
       });
     }
 
@@ -201,6 +204,8 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     // completar compra - customer
     purchase.customer = this.user;
+
+    console.log(purchase.customer);
  
     // completar compra - order y orderItem
     purchase.orderOnCredit = order;
@@ -209,6 +214,8 @@ export class CheckoutOnCreditComponent implements OnInit {
     // calcular la inforacion de pago
     this.paymentInfo.amount = Math.round(this.payment * 100);
     this.paymentInfo.currency = "USD";
+
+    //this.paymentInfo.receipEmail = purchase.customer.email;
 
     console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 
@@ -220,18 +227,30 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     if (!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
 
+      this.isDisabled = true;
       this.checkoutServiceOnCredit.createPaymentIntentOnCredit(this.paymentInfo).subscribe(
         (paymentIntentResponse) => {
           this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
             {
-              payment_method: {
-                card: this.cardElement
+                payment_method: {
+                card: this.cardElement,
+                billing_details: {
+                  name: this.checkoutFormGroup.get('customer.userName')?.value,
+                  address: {
+                    line1: this.checkoutFormGroup.get('shippingAddress.street')?.value,
+                    city: this.checkoutFormGroup.get('shippingAddress.city')?.value,
+                    postal_code: this.checkoutFormGroup.get('shippingAddress.zipCode')?.value
+                  }
+
+                }
+                
               }
             }, { handleActions: false })
             .then((result: any) => {
               if (result.error) {
                 // informar al cliente que hubo un error 
                 alert(`Hubo un error: ${result.error.message}`);
+                this.isDisabled = false;
               } else {
                 // llamar a la API REST via CheckoutService
                 this.checkoutServiceOnCredit.placeOrderOnCredit(purchase).subscribe({
@@ -241,6 +260,7 @@ export class CheckoutOnCreditComponent implements OnInit {
                   },
                   error: (err: any) => {
                     alert(`Hubo un error: ${err.message}`);
+                    this.isDisabled = false;
                   }
                 })
               }
