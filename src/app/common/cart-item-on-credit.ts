@@ -18,7 +18,7 @@ export class CartItemOnCredit {
         this.name = product.name;
         this.imageUrl = product.imageUrl;
         this.unitPrice = product.unitPrice;
-        /*this.unitPriceOnCredit = product.unitPriceOnCredit;
+      /*  this.unitPriceOnCredit = product.unitPriceOnCredit;
         this.monthlyFees = product.monthlyFees;
         this.numberOfFees = product.numberOfFees;*/
 

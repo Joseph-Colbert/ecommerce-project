@@ -1,5 +1,5 @@
 export class OrderOnCredit {
-    totalQauntity!: number;
+    totalQuantity!: number;
     totalPriceOnCredit!: number;
     unitPrice!: number;
     payment!: number;

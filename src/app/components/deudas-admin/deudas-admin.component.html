@@ -1,7 +1,7 @@
 <div class="container">
-    <h3>Tus Deudas</h3>
+    <h3>Deudas</h3>
 
-         <div *ngIf="debtsHistoryList.length > 0"> 
+         <div> 
                 <table class="table table-bordered">
                     <thead>
                       <tr>
@@ -14,7 +14,7 @@
                         <th scope="col">Precio Total</th>
                         <th scope="col">Fecha de compra</th>
                         <th scope="col">Fecha ultimo pago</th>
-                        <th scope="col">Ir a Pagar</th>
+                        <th scope="col">Puntuacion</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,18 +28,25 @@
                         <td>{{tempDebtsHistory.totalPriceOnCredit}}</td>
                         <td>{{tempDebtsHistory.dateCreated  | date: 'medium'}}</td>
                         <td>{{tempDebtsHistory.lastUpdated | date: 'medium'}}</td>
-                        <td><button class="btn btn-outline-success" routerLink="/editar"><i class="far fa-edit"></i> Pagar</button></td>
+                        <td><igc-rating class="custom-rating" [value]="ratingVal" [min]="1" [max]="5" [disabled]="true" (valueChange)="ratingChanged($event)"></igc-rating>
+
+                        <p>Puntuación actual: {{ ratingVal }}</p></td>
+                        
+                        <!-- <td><igc-rating class="custom-rating" value="ratingVal" min="1" max="5"></igc-rating></td> -->
+
                     </tr>
                 </tbody>
             </table>
           </div>
 
+          <!-- (igcChange)="ratingChanged($event);"   metodo para emplear el rating en el sistema -->
+
         <!-- si el historial de deudas esta vacio, desplegar mensaje -->
-    <div *ngIf="debtsHistoryList.length== 0" class="alert alert-warning col-md-12" role="alert">
+    <!-- <div *ngIf="debtsHistoryList.length== 0" class="alert alert-warning col-md-12" role="alert">
         No se encontraron deudas.
     </div>
     <div class="card-footer">
         <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
-    </div>
+    </div> -->
 </div>
 

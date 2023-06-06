@@ -48,7 +48,6 @@ export class CartOnCreditService {
     let totalmonthlyFeespaid: number = 0;
     let unitPrice: number =(theCartItem.unitPrice * 0.07) + theCartItem.unitPrice;
 
-
     // publicar los nuevos valores // next enviara el evento
     this.totalQuantity.next(1);
     this.monthlyFeesToPay.next(numberOfFees);

@@ -1,0 +1,10 @@
+.container {
+    margin-top: 100px;
+}
+.custom-rating {
+    /* Cambiar color */
+    color: goldenrod;
+  
+    /* Cambiar tamaño */
+    font-size: 24px;
+  }

@@ -50,7 +50,6 @@ export class CheckoutOnCreditComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private cartService: CartOnCreditService,
               private checkoutServiceOnCredit: CheckoutOnCreditService,
-              private checkoutService: CheckoutService,
               private router: Router,
               private token: TokenService,
               private customerService: CustomersService) { }
@@ -77,10 +76,10 @@ export class CheckoutOnCreditComponent implements OnInit {
   
         customer: this.formBuilder.group({
           userName: new FormControl(this.token.getUserName(),
-          [Validators.required, 
-          Validators.minLength(2), 
-          ShopValidators.notOnlyWhitespace])      
-        }),
+                                    [Validators.required, 
+                                     Validators.minLength(2), 
+                                     ShopValidators.notOnlyWhitespace])      
+                                  }),
   
         shippingAddress: this.formBuilder.group({
           street: new FormControl('',
@@ -106,9 +105,26 @@ export class CheckoutOnCreditComponent implements OnInit {
     
       // conseguir un encabezado a los elementos de stripe
       var elements = this.stripe.elements();
+
+      //
+      const style = {
+        base: {
+          color: '#32325d',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      };
   
       // crear el elemento card... y ocultar el campo zip-code
-      this.cardElement = elements.create('card', { hidePostalCode: true});
+      this.cardElement = elements.create('card', { hidePostalCode: true, style: style});
   
       // añadir a la instancia card el componente UI en el 'card-element' div
       this.cardElement.mount('#card-element');
@@ -184,21 +200,21 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     // configurar orden
     let order = new OrderOnCredit();
-    order.totalQauntity = this.totalQuantity;
+    order.totalQuantity = this.totalQuantity;
     order.monthlyFeesToPay = this.monthlyFeesToPay;
     order.monthlyFeesPaid = this.monthlyFeesPaid;
     order.payment = this.payment;
     order.unitPrice = this.unitPrice;
     order.totalPriceOnCredit = this.totalPriceOnCredit;
     
-    
+    console.log('asd' + order.payment);
 
     // obtener items 
     const cartItems = this.cartService.cartItems;
 
     // crear orderItems de cartItems
     let orderItemsOnCredit: OrderItemOnCredit[] = cartItems.map(tempCartItem => new OrderItemOnCredit(tempCartItem));
-
+console.log('asdfd' + orderItemsOnCredit)
     // configurar compras
     let purchase = new PurchaseOnCredit();
 
@@ -209,7 +225,10 @@ export class CheckoutOnCreditComponent implements OnInit {
  
     // completar compra - order y orderItem
     purchase.orderOnCredit = order;
-    purchase.orderItemsOnCredit= orderItemsOnCredit;
+    console.log(`${purchase.orderOnCredit}`);
+
+    purchase.orderItemsOnCredit = orderItemsOnCredit;
+    console.log(`${purchase.orderItemsOnCredit}`);
 
     // calcular la inforacion de pago
     this.paymentInfo.amount = Math.round(this.payment * 100);
@@ -256,7 +275,7 @@ export class CheckoutOnCreditComponent implements OnInit {
                 this.checkoutServiceOnCredit.placeOrderOnCredit(purchase).subscribe({
                   next: (response: any) => {
                     alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
-
+                    this.router.navigateByUrl("/products")
                   },
                   error: (err: any) => {
                     alert(`Hubo un error: ${err.message}`);

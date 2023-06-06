@@ -11,7 +11,12 @@ export class Product {
                 public dateCreated: Date,
                 public lastUpdated: Date,
                 public enterprise: string,
-                public category: string
+                public category: string,
+
+/*
+                public unitPriceOnCredit: number,
+                public monthlyFees: number,
+                public numberOfFees: number*/
                 ){
 
     }

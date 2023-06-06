@@ -39,6 +39,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { CheckoutOnCreditComponent } from './components/checkout-on-credit/checkout-on-credit.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { DebtsComponent } from './components/debts/debts.component';
+import { DeudasAdminComponent } from './components/deudas-admin/deudas-admin.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 //Rutas
@@ -66,6 +68,7 @@ const routes: Routes = [
   {path: 'products', component: ProductListComponent},
   
   {path: 'debts', component: DebtsComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
+  {path: 'deudasAdmin', component: DeudasAdminComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'list', component: ProductListAdminComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: 'detail/:id', component: ProductDetailComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } }, //corroborar el productdetailcomponent
@@ -76,6 +79,7 @@ const routes: Routes = [
 //
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     ProductListComponent,
@@ -102,7 +106,8 @@ const routes: Routes = [
     ChangePasswordComponent,
     CheckoutOnCreditComponent,
     InicioComponent,
-    DebtsComponent
+    DebtsComponent,
+    DeudasAdminComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

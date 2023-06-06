@@ -324,7 +324,9 @@ export class CheckoutComponent implements OnInit {
     // completar compra - order y orderItem
     purchase.order = order;
     console.log(`${purchase.order}`);
+
     purchase.orderItems = orderItems;
+    console.log(`${purchase.orderItems}`);
 
     // calcular la inforacion de pago
     this.paymentInfo.amount = Math.round(this.totalPrice * 100);
