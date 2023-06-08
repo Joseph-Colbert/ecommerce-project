@@ -14,6 +14,7 @@ import { ShopFormService } from 'src/app/services/shop-form.service';
 import { TokenService } from 'src/app/services/token.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout-on-credit',
@@ -274,11 +275,19 @@ console.log('asdfd' + orderItemsOnCredit)
                 // llamar a la API REST via CheckoutService
                 this.checkoutServiceOnCredit.placeOrderOnCredit(purchase).subscribe({
                   next: (response: any) => {
-                    alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
+                    Swal.fire({
+                    title: 'Su orden fue recibida.\n Tracking number:', 
+                    text: response.orderTrackingNumber,
+                    icon:'success'}); 
+                    //alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
                     this.router.navigateByUrl("/products")
                   },
                   error: (err: any) => {
-                    alert(`Hubo un error: ${err.message}`);
+                    Swal.fire({
+                    title:'Error!',
+                    text: err.message,
+                    icon: 'error'}); 
+                    //alert(`Hubo un error: ${err.message}`);
                     this.isDisabled = false;
                   }
                 })

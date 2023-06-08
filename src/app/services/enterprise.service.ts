@@ -44,29 +44,26 @@ getEnterpriseListPaginate(thePage: number,
 
     return this.getEnterprise(searchUrl);
 }*/
-/*
-searchProducts(theKeyword: string): Observable<Product[]> {
-
-    //construccion de URL basada en el teclado
-    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
-
-    return this.getProducts(searchUrl);
-}
-
-private getProducts(searchUrl: string): Observable<Product[]> {
-    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
-    map(response => response._embedded.products)
-    );
-}
-*/
-
 get
-
 getEnterpriseJSON(): Observable<Enterprise[]> {
     return this.httpClient.get<GetResponseEnterprises>(this.baseUrl).pipe(
       map(response => response._embedded.enterprises)
       );
   }
+
+  searchEnterprise(theKeyword: string): Observable<Enterprise[]> {
+       //construccion de URL basada en el teclado
+       const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+
+       return this.getEnterprises(searchUrl)
+  }
+
+  private getEnterprises(searchUrl: string): Observable<Enterprise[]> {
+    return this.httpClient.get<GetResponseEnterprises>(searchUrl).pipe(
+    map(response => response._embedded.enterprises)
+    );
+}
+
 
 getEnterpriseCategories(): Observable<EnterpriseCategory[]> {
     return this.httpClient.get<GetResponseEnterpriseCategory>(this.categoryUrl).pipe(

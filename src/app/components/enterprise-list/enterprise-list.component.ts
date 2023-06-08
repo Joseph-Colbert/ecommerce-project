@@ -47,24 +47,25 @@ export class EnterpriseListComponent implements OnInit {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
-      this.handleListEnterprises(); //this.handleSearchEnterprises();
+      //this.handleListEnterprises(); 
+      this.handleSearchEnterprises();
     } 
     else {
       this.handleListEnterprises();
     }
   }
 
- /* handleSearchEnterprises(){
+  handleSearchEnterprises(){
 
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
     //ahora buscaremos a los productos por teclado
     this.enterpriseService.searchEnterprise(theKeyword).subscribe(
       data => {
-        this.products = data;
+        this.enterprises = data;
       }
     )
-  }*/
+  }
 
   handleListEnterprises() {
 

@@ -91,20 +91,30 @@ export class ProductService {
     return this.httpClient.get<Product>(this.baseUrl + `detail/${id}`);
   }
 
-  public detailName(nombre: string): Observable<Product> {
-    return this.httpClient.get<Product>(this.baseUrl + `detailname/${nombre}`);
-  }
+  // public detailName(nombre: string): Observable<Product> {
+  //   return this.httpClient.get<Product>(this.baseUrl + `detailname/${nombre}`);
+  // }
 
   public save(product: Product): Observable<any> {
     return this.httpClient.post<any>(this.baseUrl, product);
   }
 
-  public update(id: number, product: Product): Observable<any> {
-    return this.httpClient.put<any>(this.baseUrl + `update/${id}`, product);
+  // public update(id: number, product: Product): Observable<any> {
+  //   return this.httpClient.put<any>(this.baseUrl + `update/${id}`, product);
+  // }
+
+  // public delete(id: number): Observable<any> {
+  //   return this.httpClient.delete<any>(this.baseUrl + `delete/${id}`);
+  // }
+
+  updateProduct(id: number, product: Product): Observable<any> {
+    const url = `${this.baseUrl}/edit/${id}`;
+    return this.httpClient.put(url, product);
   }
 
-  public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.baseUrl + `delete/${id}`);
+  deleteProduct(id: number): Observable<any> {
+    const url = `${this.baseUrl}/delete/${id}`;
+    return this.httpClient.delete(url);
   }
 }
 

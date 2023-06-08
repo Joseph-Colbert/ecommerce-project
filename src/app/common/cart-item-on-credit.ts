@@ -18,11 +18,14 @@ export class CartItemOnCredit {
         this.name = product.name;
         this.imageUrl = product.imageUrl;
         this.unitPrice = product.unitPrice;
-      /*  this.unitPriceOnCredit = product.unitPriceOnCredit;
-        this.monthlyFees = product.monthlyFees;
-        this.numberOfFees = product.numberOfFees;*/
-
+   
         this.quantity = 1;
+
+        this.unitPriceOnCredit = 0;
+        this.monthlyFees = 0;
+        this.numberOfFees = 0;
+        this.payment = 0;
+
 
     }
     

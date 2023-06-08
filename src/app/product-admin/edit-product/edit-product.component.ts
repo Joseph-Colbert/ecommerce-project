@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tap, catchError } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -11,38 +13,47 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class EditProductComponent implements OnInit {
 
-  product: Product = null!;
+  productId!: number;
+  product!: Product;
 
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
-
+  
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.params?.['id'];
-    this.productService.detail(id).subscribe({
-      next: data => {
-        this.product = data;
-      },
-      error:err => {
+    this.productId = this.activatedRoute.snapshot.params['id'];
 
-        this.router.navigate(['/']);
+    this.productService.getProduct(this.productId).pipe(
+      catchError((error) => {
+        console.error(error);
+        return of(null);
+      })
+    ).subscribe((response: Product | null) => {
+      if (response) {
+        this.product = response;
+      } else {
+        // Manejar el caso de error aquí
       }
     });
   }
 
-  onUpdate(): void {
-    const id = this.activatedRoute.snapshot.params?.['id'];
-    this.productService.update(id, this.product).subscribe({
-      next: data => {
+  updateProduct(): void {
+    this.productService.updateProduct(this.productId, this.product).pipe(
+      catchError((error) => {
+        console.error(error);
+        return of(null);
+      })
+    ).subscribe((response: any) => {
+      // Manejar la respuesta después de la actualización del producto
+      console.log('Producto actualizado exitosamente');
+      this.router.navigate(['/list']); // Redireccionar a la lista de productos
+    });
+  }
 
-        this.router.navigate(['/list']);
-      },
-      error: err => {
-
-      }
-  });
+  volver(): void {
+    this.router.navigate(['/list']);
   }
 
 }

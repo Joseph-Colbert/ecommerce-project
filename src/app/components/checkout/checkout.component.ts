@@ -14,6 +14,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { TokenService } from 'src/app/services/token.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-checkout',
@@ -372,14 +373,22 @@ export class CheckoutComponent implements OnInit {
                 // llamar a la API REST via CheckoutService
                 this.checkoutService.placeOrder(purchase).subscribe({
                   next: (response: any) => {
-                    alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
+                    Swal.fire({
+                      title: 'Su orden fue recibida.\n Tracking number:', 
+                      text: response.orderTrackingNumber,
+                      icon:'success'}); 
+                    //alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
 
                     // limpiamos el carrito
                     this.resetCart();
                     this.isDisabled = false;
                   },
                   error: (err: any) => {
-                    alert(`Hubo un error: ${err.message}`);
+                    Swal.fire({
+                      title:'Error!',
+                      text: err.message,
+                      icon: 'error'}); 
+                    //alert(`Hubo un error: ${err.message}`);
                     this.isDisabled = false;
                   }
                 })

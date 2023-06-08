@@ -1,3 +1,4 @@
+import { SearchEnterpriseComponent } from './components/search-enterprise/search-enterprise.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -66,6 +67,7 @@ const routes: Routes = [
   {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
+  {path: 'searchEnterprise/:keyword', component: EnterpriseListComponent}, 
   
   {path: 'debts', component: DebtsComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   {path: 'deudasAdmin', component: DeudasAdminComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
@@ -85,6 +87,7 @@ const routes: Routes = [
     ProductListComponent,
     ProductCategoryMenuComponent,
     SearchComponent,
+    SearchEnterpriseComponent,
     ProductDetailsComponent,
     EnterpriseListComponent,
     EnterpriseCategoryMenuComponent,
@@ -107,7 +110,8 @@ const routes: Routes = [
     CheckoutOnCreditComponent,
     InicioComponent,
     DebtsComponent,
-    DeudasAdminComponent
+    DeudasAdminComponent,
+    
   ],
   imports: [
     RouterModule.forRoot(routes),

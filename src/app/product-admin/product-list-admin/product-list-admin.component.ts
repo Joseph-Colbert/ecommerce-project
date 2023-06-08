@@ -41,16 +41,18 @@ export class ProductListAdminComponent implements OnInit {
     });
   }
 
-  borrar(id: number) {
-    this.productService.delete(id).subscribe({
-      next: data => {
 
-        this.cargarProductos();
-      },
-      error: err => {
-
-      }
-  });
+  deleteProduct(id: number): void {
+    this.productService.deleteProduct(id)
+      .subscribe({
+        next: () => {
+          console.log('Producto eliminado exitosamente.');
+          // Realiza cualquier acción adicional después de eliminar el producto
+        },
+        error: (error) => {
+          console.error('Error al eliminar el producto:', error);
+          // Maneja cualquier error que ocurra durante la eliminación del producto
+        }
+      });
   }
-
 }

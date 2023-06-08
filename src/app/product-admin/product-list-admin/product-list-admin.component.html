@@ -31,8 +31,8 @@
           <td>{{product.description}}</td>
           <td>{{product.unitsInStock}}</td>
       <!-- <td><button class="btn btn-outline-primary" routerLink="/detail/{{ product.id }}"><i class="far fa-eye"></i> Ver</button></td> -->
-          <td *ngIf="isAdmin"><button class="btn btn-outline-warning" routerLink="/editar/{{ product.id }}"><i class="far fa-edit"></i> Editar</button></td>
-          <td *ngIf="isAdmin"><button class="btn btn-outline-danger" (click)="borrar(product.id)"><i class="far fa-trash-alt"></i> Eliminar</button></td>
+          <td *ngIf="isAdmin"><button class="btn btn-outline-warning" routerLink="/products/edit/{{ product.id }}"><i class="far fa-edit"></i> Editar</button></td>
+          <td *ngIf="isAdmin"><button class="btn btn-outline-danger" (click)="deleteProduct(product.id)"><i class="far fa-trash-alt"></i> Eliminar</button></td>
         </tr>
       </tbody>
     </table>

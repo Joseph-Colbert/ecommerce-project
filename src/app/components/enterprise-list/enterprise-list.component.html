@@ -21,6 +21,10 @@
                         </div>
                     </div>
                 </div>
+                   <!-- Si no se encutra los productos, desplegar el mensaje-->
+                   <div *ngIf= "enterprises?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                    No se encontraron empresas
+                </div>
             <!--comienzo del footer-->
             <!-- <div class="footer-pagination">
                 <div class="row">

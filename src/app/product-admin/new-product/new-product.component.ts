@@ -2,6 +2,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/common/product';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-product',
@@ -38,15 +39,16 @@ export class NewProductComponent implements OnInit {
                                 this.unitsInStock, this.dateCreated, this.lastUpdated, this.enterprise, this.category);
       this.productService.save(product).subscribe({
         next: data => {
-          alert(`Producto Creado`)
-
-        
+          Swal.fire('Felicidades!',
+                    'Producto Creado',
+                    'success'); 
           
           this.router.navigate(['/list']);
         },
         error: err => {
-          alert(`Hubo un error`)
-
+          Swal.fire('Error!',
+                    'Hubo un Error',
+                    'error'); 
         }
     });
   }

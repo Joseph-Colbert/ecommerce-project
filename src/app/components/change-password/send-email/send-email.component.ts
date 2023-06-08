@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { EmailValuesDto } from './../../../models/email-values-dto';
 import { EmailPasswordService } from './../../../services/email-password.service';
 import { Component, OnInit } from '@angular/core';
@@ -22,10 +23,17 @@ export class SendEmailComponent implements OnInit {
     this.emailpasswordService.sendEmail(this.dto).subscribe(
       {
         next:  response => {
-          alert(`Te hemos enviado un correo`);
+          Swal.fire({
+            title: 'Te hemos enviado un correo', 
+            icon:'info'}); 
+          //alert(`Te hemos enviado un correo`);
         },
         error: err => {
-          alert(`Hubo un error: ${err.message}`);
+          Swal.fire({
+            title:'Error!',
+            text: err.message,
+            icon: 'error'}); 
+          //alert(`Hubo un error: ${err.message}`);
         }
       }
     )
