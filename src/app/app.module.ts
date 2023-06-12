@@ -42,6 +42,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { DebtsComponent } from './components/debts/debts.component';
 import { DeudasAdminComponent } from './components/deudas-admin/deudas-admin.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { PaymentOnCreditComponent } from './components/payment-on-credit/payment-on-credit.component';
 
 
 //Rutas
@@ -68,6 +69,7 @@ const routes: Routes = [
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
   {path: 'searchEnterprise/:keyword', component: EnterpriseListComponent}, 
+  {path: 'paymentOnCredit', component: PaymentOnCreditComponent}, 
   
   {path: 'debts', component: DebtsComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
   {path: 'deudasAdmin', component: DeudasAdminComponent,  canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
@@ -111,6 +113,7 @@ const routes: Routes = [
     InicioComponent,
     DebtsComponent,
     DeudasAdminComponent,
+    PaymentOnCreditComponent,
     
   ],
   imports: [

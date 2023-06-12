@@ -19,16 +19,16 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let tempDebtsHistory of debtsHistoryList">
-                        <td>{{tempDebtsHistory.image_url}}</td>
+                        <td> <img src="{{tempDebtsHistory.imageUrl}}"/></td>
                         <td>{{tempDebtsHistory.orderTrackingNumber}}</td>
                         <td>{{tempDebtsHistory.totalQuantity}}</td>
                         <td>{{tempDebtsHistory.numberOfFeesToPay}}</td>
                         <td>{{tempDebtsHistory.numberOfFeesPaid}}</td>
-                        <td>{{tempDebtsHistory.totalPrice}}</td>
-                        <td>{{tempDebtsHistory.totalPriceOnCredit}}</td>
+                        <td>{{tempDebtsHistory.payment}}</td>
+                        <td>{{tempDebtsHistory.unitPrice}}</td>
                         <td>{{tempDebtsHistory.dateCreated  | date: 'medium'}}</td>
                         <td>{{tempDebtsHistory.lastUpdated | date: 'medium'}}</td>
-                        <td><button class="btn btn-outline-success" routerLink="/editar"><i class="far fa-edit"></i> Pagar</button></td>
+                        <td><button class="btn btn-outline-success" routerLink="/paymentOnCredit"><i class="far fa-edit"></i> Pagar</button></td>
                     </tr>
                 </tbody>
             </table>

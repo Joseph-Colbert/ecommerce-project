@@ -19,7 +19,7 @@ export class CartService {
 
     // leer la informacion almacenada
     let data = JSON.parse(this.storage.getItem('cartItems')!);
-
+console.log(data)
     if (data != null) {
       this.cartItems = data;
       this.computeCartTotals();

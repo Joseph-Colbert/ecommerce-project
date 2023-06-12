@@ -215,8 +215,16 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     // crear orderItems de cartItems
     let orderItemsOnCredit: OrderItemOnCredit[] = cartItems.map(tempCartItem => new OrderItemOnCredit(tempCartItem));
-console.log('asdfd' + orderItemsOnCredit)
+  
     // configurar compras
+    orderItemsOnCredit.forEach((v => {
+      v.monthlyFees = order.monthlyFeesToPay;
+      v.numberOfFees = order.monthlyFeesPaid + 1;
+      v.payment = order.payment;
+      v.unitPriceOnCredit = order.totalPriceOnCredit;
+      v.unitPrice = order.unitPrice
+    }))
+    console.log(orderItemsOnCredit)
     let purchase = new PurchaseOnCredit();
 
     // completar compra - customer

@@ -1,0 +1,75 @@
+<div class="main-content page-m">
+    
+    <div class="section-content section-content-p30">
+        
+        <div class="container-fluid">
+
+              <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit">
+
+                <!--grupo del formulario para el cliente-->
+                
+                <div formGroupName="customer" class="form-area">
+
+                    <h3>Cliente</h3>
+                    <div class="row">
+                        <div class="col-md-2"> <label>Nombre de Usuario</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="userName" type="text" readonly>
+
+                                     <div *ngIf="userName.errors?.['required']">
+                                        Se requiere el Nombre de Usuario 
+                                    </div> 
+     
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+               
+                <!--informacion de tarjeta de credito-->  
+
+                <!-- Elementos de Stripe para la seccion de tarjetas-->
+                <div formGroupName="creditCard" class="form-area">
+                    <h3>Tarjeta de credito o Debito</h3>
+
+                    <div id="card-element">
+                        <!--Los elementos de stripe se insertaran aca-->
+                    </div>
+
+                    <!--Para desplegar algunos errores-->
+                    <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1' ">
+
+                    </div>
+                </div>
+
+                <!--Detalles de orden-->
+                <div class="form-area">
+                    <h3>Vista de la orden</h3>
+                    <p>Tracking Number: {{ orderTrackingNumber }} </p>
+<!-- 
+                    <p>Cantidad Total: {{ totalQuantity }}</p>
+                    <p>Numero de cuotas mensuales: {{ monthlyFeesToPay }}</p>
+                    <p>Numero de cuotas mensuales pagadas: {{ monthlyFeesPaid}}</p>
+                    <p>Primer Pago: {{ payment | currency: 'Bs ' }}</p>
+                    <p>Precio Total: {{ totalPriceOnCredit | currency: 'Bs ' }}</p>
+                    <p>Precio Total a Credito: {{ unitPrice | currency: 'Bs ' }}</p> -->
+                </div>
+
+                <!--boton para enviar-->  
+                <div class="text-center">
+                    <!-- <button type="submit" class="btn btn-primary" [disabled]="isDisabled" (click)="onSubmit()">Comprar</button>
+
+                    <div class="card-footer">
+                        <button class="btn btn-outline-primary btn-block" (click)="volver()"><i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                    </div> -->
+                    
+                </div>  
+             </form>
+
+        </div>
+    </div>
+</div>
+

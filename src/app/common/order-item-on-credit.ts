@@ -8,14 +8,17 @@ export class OrderItemOnCredit {
     monthlyFees!: number;
     numberOfFees!: number;
     quantity!: number;
+    payment!: number;
     productId!: number;
 
+    
     constructor(cartItem:CartItemOnCredit) {
         this.imageUrl = cartItem.imageUrl;
         this.unitPrice = cartItem.unitPrice;
         this.unitPriceOnCredit = cartItem.unitPriceOnCredit;
         this.monthlyFees = cartItem.monthlyFees;
         this.numberOfFees = cartItem.numberOfFees;
+        this.payment = cartItem.payment;
         this.quantity = cartItem.quantity;
         
         this.productId = cartItem.id;

@@ -36,6 +36,27 @@ export class CartOnCreditService {
 
   addToCart(theCartItem: CartItemOnCredit, numberOfFees: number) {
 
+     // revisar si tenemos el item en el carrito
+     let alreadyExistsInCart: boolean = false;
+     let existingCartItem: CartItemOnCredit = undefined!;
+ 
+     if (this.cartItems.length > 0) {
+       // encontrar el item en el carrito nasado en el id del item
+ 
+       existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id)!;
+ 
+       // revisar si lo encontramos
+       alreadyExistsInCart = (existingCartItem != undefined);
+     }
+ 
+     if (alreadyExistsInCart) {
+       //incrementar la cantidad 
+       existingCartItem.quantity++;
+     } else {
+       // solo añade el item al array
+       this.cartItems.push(theCartItem); 
+     }
+ 
     this.computeCartTotals(theCartItem,numberOfFees);
 
   }
