@@ -1,0 +1,14 @@
+.au-input-xl {
+    font-size: 17px;
+    height: 38px;
+    width: 100%; /* Asegurar que ocupe el ancho completo */
+    max-width: 200px; /* Límite máximo de longitud */
+    box-sizing: border-box; /* Incluir el ancho del borde y el relleno en el tamaño total */
+  }
+  
+  @media screen and (max-width: 768px) {
+    .au-input-xl {
+      max-width: 150px; /* Límite máximo de longitud en pantallas más pequeñas */
+    }
+  }
+  

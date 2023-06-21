@@ -53,7 +53,7 @@
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="text-description">
-                   <h6><p> Valor total de la compra: {{ (product.unitPrice  * 0.07)+ product.unitPrice }} Bs</p></h6>
+                   <h6><p> Valor total de la compra: {{ (product.unitPrice  * 0.07)+ product.unitPrice | number: '1.2-2'}} Bs</p></h6>
                    <h6><p> Cantidad: 1</p></h6>
                    <h6><p> Total de cuotas: {{ numberOfFees }}</p></h6>
             </div>

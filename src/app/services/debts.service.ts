@@ -1,8 +1,9 @@
 import { Product } from 'src/app/common/product';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Debts } from '../common/debts';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class DebtsService {
   private debtsUrl = 'http://localhost:8080/api/orderOnCredits'
 
   private debtsUrlOrder = 'http://localhost:8080/api/orderItemOnCredits'
+
+  debtsSource: Subject<any> = new Subject<any>();
+  debts$: Observable<any> = this.debtsSource.asObservable();
 
   constructor(private httpClient: HttpClient) { }
 

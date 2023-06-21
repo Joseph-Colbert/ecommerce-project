@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RoutingServiceService } from '../services/routing-service.service';
 
 @Component({
   selector: 'app-inicio',
@@ -9,9 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 export class InicioComponent implements OnInit {
 
   hamburguer1 = document.querySelector('.hamburguer')
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private router: RoutingServiceService) { }
 
   ngOnInit(): void {
+    this.router.routeSource.next(this.route);
+
     const hamburguer = document.querySelector('.hamburguer')
     const menu = document.querySelector('.menu-navegacion')
 
@@ -27,8 +31,6 @@ export class InicioComponent implements OnInit {
           menu!.classList.toggle("spread")
       } 
   })
-
-
   }
   
 

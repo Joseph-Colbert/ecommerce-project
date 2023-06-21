@@ -19,13 +19,13 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let tempDebtsHistory of debtsHistoryList">
-                        <td>{{tempDebtsHistory.image_url}}</td>
+                        <td> <img src="{{tempDebtsHistory.imageUrl}}" width="150" height="150"/></td>
                         <td>{{tempDebtsHistory.orderTrackingNumber}}</td>
                         <td>{{tempDebtsHistory.totalQuantity}}</td>
                         <td>{{tempDebtsHistory.numberOfFeesToPay}}</td>
                         <td>{{tempDebtsHistory.numberOfFeesPaid}}</td>
-                        <td>{{tempDebtsHistory.totalPrice}}</td>
-                        <td>{{tempDebtsHistory.totalPriceOnCredit}}</td>
+                        <td>{{tempDebtsHistory.payment | currency: 'Bs'}}</td>
+                        <td>{{tempDebtsHistory.unitPrice | currency: 'Bs'}}</td>
                         <td>{{tempDebtsHistory.dateCreated  | date: 'medium'}}</td>
                         <td>{{tempDebtsHistory.lastUpdated | date: 'medium'}}</td>
                         <td><igc-rating class="custom-rating" [value]="ratingVal" [min]="1" [max]="5" [disabled]="true" (valueChange)="ratingChanged($event)"></igc-rating>

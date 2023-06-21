@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { DebtsService } from 'src/app/services/debts.service';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PaymentInfo } from 'src/app/common/payment-info';
 import { CartPaymentOnCreditService } from 'src/app/services/cart-payment-on-credit.service';
 import { CustomersService } from 'src/app/services/customers.service';
@@ -9,6 +10,8 @@ import { TokenService } from 'src/app/services/token.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
+import { PaymentOnCredit } from 'src/app/common/payment-on-credit';
 
 @Component({
   selector: 'app-payment-on-credit',
@@ -17,9 +20,12 @@ import { environment } from 'src/environments/environment';
 })
 export class PaymentOnCreditComponent implements OnInit {
 
+  cargado: boolean = false;
+
   checkoutFormGroup!: FormGroup;
   user: any;
   orderTrackingNumber!: string;
+  historia!: any;
 
   storage: Storage = sessionStorage;
 
@@ -32,12 +38,17 @@ export class PaymentOnCreditComponent implements OnInit {
 
     isDisabled: boolean = false;
 
+    debts!: any;
+
   constructor(private formBuilder: FormBuilder,
               private cartService: CartPaymentOnCreditService,
               private checkoutServiceOnCredit: PaymentOnCreditService,
               private router: Router,
               private token: TokenService,
-              private customerService: CustomersService) { }
+              private customerService: CustomersService,
+              private activatedRoute: ActivatedRoute,
+              private debtsService: DebtsService) { }
+
 
     userInfo(): void {
       const userName = this.token.getUserName();
@@ -55,6 +66,7 @@ export class PaymentOnCreditComponent implements OnInit {
 
     this.reviewCartDetails();
 
+    this.orderTrackingNumber = this.activatedRoute.snapshot.paramMap.get('orderTrackingNumber')!;
     this.checkoutFormGroup! = this.formBuilder.group({
   
       customer: this.formBuilder.group({
@@ -65,8 +77,19 @@ export class PaymentOnCreditComponent implements OnInit {
                                 }),
   
                               });
+
+    this.historial();
+
+  }
+
+  historial() {
+    this.debtsService.getDebtsHistoryOrders(this.orderTrackingNumber).subscribe(value =>{
+      this.historia = value._embedded.orderItemOnCredits[0];
+    }
+      )
   }
   
+
   setupStripePaymentForm() {
     
     // conseguir un encabezado a los elementos de stripe
@@ -123,6 +146,74 @@ export class PaymentOnCreditComponent implements OnInit {
 
   onSubmit() {
     // obtener el id del order item de la lista, con ese id bucscar find en la lista debshistory. agarrar el objeto un vez optenido y setear urilizae el metodo save 
+    console.log("Handling the submit button");
+
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched;
+      return
+    }
+
+
+    console.log(this.historia.payment);
+    let purchase: any;
+
+     purchase = this.historia;
+     console.log(`${purchase.orderItemsOnCredit}`);
+
+        // calcular la inforacion de pago
+        this.paymentInfo.amount = Math.round(Number(this.historia.payment) * 100);
+        this.paymentInfo.currency = "USD";
+        this.paymentInfo.receiptEmail = 'joseph97cm@gmail.com'//purchase.customer.email;
+
+        if (!this.checkoutFormGroup.invalid && this.displayError.textContent === "") {
+
+          this.isDisabled = true;
+          this.checkoutServiceOnCredit.createPaymentIntentOnCredit(this.paymentInfo).subscribe(
+            (paymentIntentResponse) => {
+              this.stripe.confirmCardPayment(paymentIntentResponse.client_secret,
+                {
+                    payment_method: {
+                    card: this.cardElement,
+                    billing_details: {
+                      name: this.checkoutFormGroup.get('customer.userName')?.value,
+      
+                    }
+                    
+                  }
+                }, { handleActions: false })
+                .then((result: any) => {
+                  if (result.error) {
+                    // informar al cliente que hubo un error 
+                    alert(`Hubo un error: ${result.error.message}`);
+                    this.isDisabled = false;
+                  } else {
+                        // llamar a la API REST via CheckoutService
+                        this.checkoutServiceOnCredit.placeOrderOnCreditPayment(purchase).subscribe({
+                          next: (response: any) => {
+                            Swal.fire({
+                            title: '', 
+                            text: response.message,
+                            icon:'success'}); 
+                            //alert(`Su orden fue recibida.\n Tracking number: ${response.orderTrackingNumber}`);
+                            this.router.navigateByUrl("/products")
+                          },
+                          error: (err: any) => {
+                            Swal.fire({
+                            title:'Error!',
+                            text: err.message,
+                            icon: 'error'}); 
+                            //alert(`Hubo un error: ${err.message}`);
+                            this.isDisabled = false;
+                          }
+                        })
+                      }
+                    });
+                  }
+                );
+            } else {
+              this.checkoutFormGroup.markAllAsTouched();
+              return;
+        }
   }
 
 

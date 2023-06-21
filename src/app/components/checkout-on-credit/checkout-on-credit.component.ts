@@ -243,7 +243,7 @@ export class CheckoutOnCreditComponent implements OnInit {
     this.paymentInfo.amount = Math.round(this.payment * 100);
     this.paymentInfo.currency = "USD";
 
-    //this.paymentInfo.receipEmail = purchase.customer.email;
+    this.paymentInfo.receiptEmail = 'joseph97cm@gmail.com'//purchase.customer.email;
 
     console.log(`this.paymentInfo.amount: ${this.paymentInfo.amount}`);
 

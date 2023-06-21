@@ -15,6 +15,7 @@ defineComponents(IgcRatingComponent);
 export class DeudasAdminComponent implements OnInit {
 
   debtsHistoryList: DeudasAdmin[] = [];
+  debtsHistory: any[] = [];
   storage: Storage = sessionStorage;
 
   ratingVal: number;
@@ -35,20 +36,48 @@ export class DeudasAdminComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    this.handleDebts();
+     this.handleDebts().then((v) => this.orderItem(v));
   }
 
-  handleDebts() {
+  async handleDebts() {
     
       const userName = this.token.getUserName();
 
-      // obtener datos desde el service
-      this.debtsHistoryService.getDebtsHistory(userName).subscribe(
-        data => {
+      return new Promise<any>((resolve,reject) => {
+          // obtener datos desde el service
+      this.debtsHistoryService.getDebtsHistory(userName).subscribe({
+        next: (data) => {
+
           this.debtsHistoryList = data._embedded.orderOnCredits;
+             
+          resolve(data._embedded.orderOnCredits);
+        }, 
+        error: (error) => {
+          reject(error);
+        }
+      }
+        // 
+      );
+      })
+    }
+
+
+  orderItem(t:any) {
+    t.forEach((v:any) => {
+      this.debtsHistoryService.getDebtsHistoryOrders(v.orderTrackingNumber).subscribe(
+        data => {
+          this.debtsHistory.push(data._embedded.orderItemOnCredits[0]);
+          v.idOrderItem = data._embedded.orderItemOnCredits[0]?.id;
+          v.imageUrl = data._embedded.orderItemOnCredits[0]?.imageUrl;
+          v.payment = data._embedded.orderItemOnCredits[0]?.payment;
+          v.unitPrice = data._embedded.orderItemOnCredits[0]?.unitPrice;
+          v.numberOfFeesPaid = data._embedded.orderItemOnCredits[0]?.numberOfFees;
+          v.numberOfFeesToPay = data._embedded.orderItemOnCredits[0]?.monthlyFees; ///cambiar a entero
         }
       );
-    }
+
+    })
+  }  
 
 calculateMonthDifference(date1: Date, date2: Date): number {
     const diffInMilliseconds = Math.abs((date1.getTime() + 120) - date2.getTime());

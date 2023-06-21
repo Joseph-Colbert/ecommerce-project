@@ -63,7 +63,9 @@ export class DebtsComponent implements OnInit {
     })
   }  
 
-
+  Pagar(tempDebtsHistory:any) {
+      this.debtsHistoryService.debtsSource.next(tempDebtsHistory)
+  }
     
   volver(): void {
     this.router.navigate(['/products']);

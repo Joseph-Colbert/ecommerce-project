@@ -16,8 +16,8 @@ export class PaymentOnCreditService {
 
   constructor(private httpClient: HttpClient) { }
 
-  placeOrderOnCredit(purchase: PaymentOnCredit): Observable<any> {
-    return this.httpClient.post<PaymentOnCredit>(this.purchaseUrl, purchase);
+  placeOrderOnCreditPayment(purchase: any): Observable<any> {
+    return this.httpClient.put<any>(this.purchaseUrl, purchase);
   }
 
   createPaymentIntentOnCredit(paymentInfo: PaymentInfo): Observable<any> {

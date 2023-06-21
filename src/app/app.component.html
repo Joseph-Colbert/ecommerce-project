@@ -7,7 +7,7 @@
         <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
       </a>
     </div> -->
-
+<div *ngIf="actualRoute?.component?.name !== 'InicioComponent'">
     <app-product-category-menu *ngIf="actualRoute?.component?.name !== 'EnterpriseListComponent'">
                        
 
@@ -16,13 +16,13 @@
     <app-enterprise-category-menu *ngIf="actualRoute?.component?.name === 'EnterpriseListComponent'">
 
     </app-enterprise-category-menu>
-   
+</div>
 
  
   <!-- END MENU SIDEBAR-->
   <div class="page-container">
     <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
+    <header class="header-desktop" *ngIf="actualRoute?.component?.name !== 'InicioComponent'">
       <div class="section-content section-content-p30">
         <div class="container-fluid">
           <div class="header-wrap">
@@ -42,18 +42,19 @@
             <app-cart-status></app-cart-status>
 
           </div>
-          <div class="account-wrap"></div>
+          <!-- <div class="account-wrap"></div> -->
         </div>
       </div>
     </header>
     <!-- END HEADER DESKTOP-->
 
     <!-- MAIN CONTENT-->
-    <router-outlet></router-outlet>
     
+    <router-outlet *ngIf="actualRoute?.component?.name !== 'InicioComponent'"></router-outlet>
     
 
     </div>
+    <router-outlet *ngIf="actualRoute?.component?.name === 'InicioComponent'"></router-outlet>
 </div>
 
 <!-- ENDS PAGE CONTAINER -->
