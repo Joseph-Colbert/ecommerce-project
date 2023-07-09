@@ -7,10 +7,11 @@
         <img src="assets/images/logo.png" alt="luv2shop" class="img-responsive">
       </a>
     </div> -->
-<div *ngIf="actualRoute?.component?.name !== 'InicioComponent'">
+<div *ngIf="!(actualRoute?.component?.name === 'InicioComponent' || actualRoute?.component?.name === 'LoginComponent'
+            || actualRoute?.component?.name === 'ChangePasswordComponent')">
     <app-product-category-menu *ngIf="actualRoute?.component?.name !== 'EnterpriseListComponent'">
                        
-
+ 
     </app-product-category-menu>
 
     <app-enterprise-category-menu *ngIf="actualRoute?.component?.name === 'EnterpriseListComponent'">
@@ -20,9 +21,11 @@
 
  
   <!-- END MENU SIDEBAR-->
-  <div class="page-container">
+  <div [style]="!(actualRoute?.component?.name === 'InicioComponent' || actualRoute?.component?.name === 'LoginComponent'
+                || actualRoute?.component?.name === 'ChangePasswordComponent')? 'padding-left:100px': 'padding-left:0px'">
     <!-- HEADER DESKTOP-->
-    <header class="header-desktop" *ngIf="actualRoute?.component?.name !== 'InicioComponent'">
+    <header class="header-desktop" *ngIf="!(actualRoute?.component?.name === 'InicioComponent' || actualRoute?.component?.name === 'LoginComponent'
+                                          || actualRoute?.component?.name === 'ChangePasswordComponent')">
       <div class="section-content section-content-p30">
         <div class="container-fluid">
           <div class="header-wrap">
@@ -50,11 +53,11 @@
 
     <!-- MAIN CONTENT-->
     
-    <router-outlet *ngIf="actualRoute?.component?.name !== 'InicioComponent'"></router-outlet>
+    <router-outlet ></router-outlet>
     
 
     </div>
-    <router-outlet *ngIf="actualRoute?.component?.name === 'InicioComponent'"></router-outlet>
+  
 </div>
 
 <!-- ENDS PAGE CONTAINER -->
@@ -66,3 +69,4 @@
     <li><a href="#">Help</a></li>
   </ul>
 </footer> -->
+<!-- *ngIf="actualRoute?.component?.name !== 'InicioComponent'  -->

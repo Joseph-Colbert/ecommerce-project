@@ -21,7 +21,7 @@ export class NewProductComponent implements OnInit {
   unitsInStock!: number;
   dateCreated!: Date;
   lastUpdated!:  Date;
-  enterprise!: string;
+  enterprise: string = "Maquillaje123";
   category!: string;
   
   
@@ -36,7 +36,7 @@ export class NewProductComponent implements OnInit {
 
   onCreate(): void {
     const product = new Product(this.id,this.sku, this.name, this.description, this.unitPrice, this.imageUrl, this.active, 
-                                this.unitsInStock, this.dateCreated, this.lastUpdated, this.enterprise, this.category);
+                                this.unitsInStock, this.dateCreated, this.lastUpdated, "/enterprises/2", this.category);
       this.productService.save(product).subscribe({
         next: data => {
           Swal.fire('Felicidades!',

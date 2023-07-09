@@ -36,8 +36,8 @@ body{
 }
 
 .container-page{ 
-    height: 60vh;
-    width: 20vw;
+    height: 85vh;
+    width: 30vw;
     border-radius: 20px;
     display: flex;
     justify-content: center;

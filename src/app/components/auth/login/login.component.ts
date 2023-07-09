@@ -1,8 +1,9 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from './../../../services/token.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginUser } from 'src/app/common/login-user';
+import { RoutingServiceService } from 'src/app/services/routing-service.service';
 
 @Component({
   selector: 'app-login',
@@ -24,9 +25,12 @@ export class LoginComponent implements OnInit {
   constructor( 
     private tokenService: TokenService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private router1: RoutingServiceService) { }
 
   ngOnInit() {
+    this.router1.routeSource.next(this.route);// TODO
     if(this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;

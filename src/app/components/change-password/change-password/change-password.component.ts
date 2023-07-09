@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChangePasswordDto } from 'src/app/models/change-password-dto';
 import { EmailPasswordService } from 'src/app/services/email-password.service';
+import { RoutingServiceService } from 'src/app/services/routing-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,9 +21,11 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(private emailPasswordService: EmailPasswordService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private router1: RoutingServiceService) { }
 
   ngOnInit(): void {
+    this.router1.routeSource.next(this.activatedRoute);// TODO
    
   }
 

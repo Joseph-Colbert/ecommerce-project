@@ -10,11 +10,11 @@ import { RoutingServiceService } from '../services/routing-service.service';
 export class InicioComponent implements OnInit {
 
   hamburguer1 = document.querySelector('.hamburguer')
-  constructor(private route: ActivatedRoute,
-              private router: RoutingServiceService) { }
+  constructor(private route: ActivatedRoute,// TODO
+              private router: RoutingServiceService) { }// TODO
 
   ngOnInit(): void {
-    this.router.routeSource.next(this.route);
+    this.router.routeSource.next(this.route);// TODO
 
     const hamburguer = document.querySelector('.hamburguer')
     const menu = document.querySelector('.menu-navegacion')

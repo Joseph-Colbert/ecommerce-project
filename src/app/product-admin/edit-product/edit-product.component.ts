@@ -4,6 +4,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -39,17 +40,26 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  updateProduct(): void {
-    this.productService.updateProduct(this.productId, this.product).pipe(
-      catchError((error) => {
-        console.error(error);
-        return of(null);
-      })
-    ).subscribe((response: any) => {
-      // Manejar la respuesta después de la actualización del producto
-      console.log('Producto actualizado exitosamente');
-      this.router.navigate(['/list']); // Redireccionar a la lista de productos
+  async updateProduct() {
+    this.productService.updateProduct(this.productId, this.product).subscribe((response: any) => {
+
+      console.log(response);
+
+      (data: any) => {
+        Swal.fire('Felicidades!',
+                  'Producto Creado',
+                  'success'); 
+        
+        this.router.navigate(['/list']);
+      }
+
+  
     });
+  }
+
+  buttonUpdate(){
+    this.updateProduct().then(()=>
+    this.volver());
   }
 
   volver(): void {

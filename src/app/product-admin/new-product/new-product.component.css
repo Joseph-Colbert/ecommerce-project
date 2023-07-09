@@ -36,7 +36,7 @@ body{
 }
 
 .container-page{ 
-    height: 83vh;
+    height: 60vh;
     width: 20vw;
     border-radius: 20px;
     display: flex;
@@ -154,5 +154,23 @@ a {
 
 .button-second:hover{
     opacity: 1;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.name-input {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 

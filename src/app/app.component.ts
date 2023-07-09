@@ -31,4 +31,11 @@ export class AppComponent implements OnInit {
       console.log(res);
     });
   }
+
+  mostrarNavBar(): boolean {  
+    
+    return this.actualRoute.component.name  !== 'InicioComponent';
+  
+    
+  }
 }

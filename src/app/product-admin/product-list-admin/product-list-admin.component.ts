@@ -43,16 +43,20 @@ export class ProductListAdminComponent implements OnInit {
 
 
   deleteProduct(id: number): void {
+    console.log(id);
     this.productService.deleteProduct(id)
-      .subscribe({
-        next: () => {
-          console.log('Producto eliminado exitosamente.');
-          // Realiza cualquier acción adicional después de eliminar el producto
-        },
-        error: (error) => {
-          console.error('Error al eliminar el producto:', error);
-          // Maneja cualquier error que ocurra durante la eliminación del producto
-        }
-      });
+      .subscribe(
+        value => {
+          console.log(value);
+        })
+      //   next: () => {
+      //     console.log('Producto eliminado exitosamente.');
+      //     // Realiza cualquier acción adicional después de eliminar el producto
+      //   },
+      //   error: (error) => {
+      //     console.error('Error al eliminar el producto:', error);
+      //     // Maneja cualquier error que ocurra durante la eliminación del producto
+      //   }
+      // });
   }
 }
