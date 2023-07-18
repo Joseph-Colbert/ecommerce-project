@@ -39,6 +39,7 @@ export class CheckoutOnCreditComponent implements OnInit {
   
   storage: Storage = sessionStorage;
 
+
   // inicializar la api de stripe
   stripe = Stripe(environment.stripePublishableKey);
 
@@ -47,6 +48,7 @@ export class CheckoutOnCreditComponent implements OnInit {
     displayError: any = "";
 
     isDisabled: boolean = false;
+    paymentForm: any;
 
   constructor(private formBuilder: FormBuilder,
               private cartService: CartOnCreditService,
@@ -68,6 +70,7 @@ export class CheckoutOnCreditComponent implements OnInit {
 
       this.userInfo();
 
+      this.setupStripe() 
       // configuracion de formulario de pagos de stripe
       this.setupStripePaymentForm();
 
@@ -102,6 +105,9 @@ export class CheckoutOnCreditComponent implements OnInit {
 
     }
 
+    setupStripe() {
+      this.stripe = new Stripe(environment.stripePublishableKey);
+    }
     setupStripePaymentForm() {
     
       // conseguir un encabezado a los elementos de stripe
@@ -123,9 +129,23 @@ export class CheckoutOnCreditComponent implements OnInit {
           iconColor: '#fa755a'
         }
       };
+      
+      // this.cardElement = elements.create('card', { style });
+      // this.cardElement.mount('#card-element');
+
+      // this.cardElement.on('change', (event: any) => {
+      //   const displayError = document.getElementById('card-errors');
+      //   if (event.error) {
+      //     this.displayError.textContent = event.error.message;
+      //   } else {
+      //     this.displayError.textContent = '';
+      //   }
+
   
       // crear el elemento card... y ocultar el campo zip-code
       this.cardElement = elements.create('card', { hidePostalCode: true, style: style});
+
+      // this.cardElement.update({ style: { base: { '::placeholder': { color: 'transparent' } } } });
   
       // añadir a la instancia card el componente UI en el 'card-element' div
       this.cardElement.mount('#card-element');
@@ -142,9 +162,20 @@ export class CheckoutOnCreditComponent implements OnInit {
           //mostrar la validacion de error al cliente
           this.displayError.textContent = event.error.message;
         }
+
+            // Enmascarar el número de tarjeta
+      // const cardNumber = event?.value ?? '';
+      // const maskedCardNumber = this.maskCardNumber(cardNumber);
+      // this.paymentForm.get('creditCard.cardNumber')?.setValue(maskedCardNumber, { emitEvent: false });
       });
-  
     }
+
+    // maskCardNumber(cardNumber: string): string {
+    //   const firstDigits = cardNumber.slice(0, 4);
+    //   const lastDigits = cardNumber.slice(-4);
+    //   const maskedDigits = '*'.repeat(cardNumber.length - 8);
+    //   return `${firstDigits} ${maskedDigits} ${lastDigits}`;
+    // }
   
 
     reviewCartDetails() {

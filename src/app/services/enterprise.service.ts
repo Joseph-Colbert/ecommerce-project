@@ -27,14 +27,14 @@ export class EnterpriseService {
   }
 
 getEnterpriseListPaginate(thePage: number,
-                        thePageSize: number,
-                        theCategoryId: number) {/*mapea el Json desde spring para el array de productos*/ 
+                          thePageSize: number,
+                          theCategoryId: number): Observable <GetResponseEnterprises> {/*mapea el Json desde spring para el array de productos*/ 
 
 //construccion de URL basada en el id de la categoria/ pagina y tamaño
-    const searchUrl = `${this.baseUrl}/search/findByCategoryEId?id=${theCategoryId}`
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
                     + `&page=${thePage}&size=${thePageSize}`;
 
-    return this.httpClient.get<GetResponseEnterprises >(searchUrl);
+    return this.httpClient.get<GetResponseEnterprises>(searchUrl);
 }
 
 /*getEnterpriseList(theCategoryId: number): Observable<Enterprise[]> {/*mapea el Json desde spring para el array de productos*/ 
@@ -65,11 +65,11 @@ getEnterpriseJSON(): Observable<Enterprise[]> {
 }
 
 
-getEnterpriseCategories(): Observable<EnterpriseCategory[]> {
-    return this.httpClient.get<GetResponseEnterpriseCategory>(this.categoryUrl).pipe(
-    map(response => response._embedded.enterpriseCategory)
-    );
-}
+    getEnterpriseCategories(): Observable<EnterpriseCategory[]> {
+        return this.httpClient.get<GetResponseEnterpriseCategory>(this.categoryUrl).pipe(
+        map(response => response._embedded.enterpriseCategory)
+        );
+    }
 }
 
     interface GetResponseEnterprises {

@@ -103,6 +103,12 @@ calculateMonthDifference(date1: Date, date2: Date): number {
   ratingChanged(event: any) {
     this.ratingVal = event.rating;
   }
+
+  ratingValue(paid:number, toPay:number){
+    const stars = 5;
+    const starsPondered = stars/toPay;
+    return paid*starsPondered;
+  }
     
   volver(): void {
     this.router.navigate(['/products']);

@@ -28,9 +28,9 @@
                         <td>{{tempDebtsHistory.unitPrice | currency: 'Bs'}}</td>
                         <td>{{tempDebtsHistory.dateCreated  | date: 'medium'}}</td>
                         <td>{{tempDebtsHistory.lastUpdated | date: 'medium'}}</td>
-                        <td><igc-rating class="custom-rating" [value]="ratingVal" [min]="1" [max]="5" [disabled]="true" (valueChange)="ratingChanged($event)"></igc-rating>
+                        <td><igc-rating class="custom-rating" [value]="ratingValue(tempDebtsHistory.numberOfFeesPaid, tempDebtsHistory.numberOfFeesToPay)" [min]="1" [max]="5" [disabled]="true" (valueChange)="ratingChanged($event)"></igc-rating>
 
-                        <p>Puntuación actual: {{ ratingVal }}</p></td>
+                        <p>Puntuación actual: {{ ratingValue(tempDebtsHistory.numberOfFeesPaid, tempDebtsHistory.numberOfFeesToPay)  | number: '1.2-2' }}</p></td>
                         
                         <!-- <td><igc-rating class="custom-rating" value="ratingVal" min="1" max="5"></igc-rating></td> -->
 
