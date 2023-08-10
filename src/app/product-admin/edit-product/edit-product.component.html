@@ -14,7 +14,7 @@
             <br>
             <form (ngSubmit)="updateProduct()" novalidate #f="ngForm">
                 <div class="form-group">
-                    <label for="name-input">Nombre</label>
+                    <label class="name-input">Nombre</label>
                     <input type="text" class="input-line" id="name" name="name" 
                     [(ngModel)]="product.name" required>
                 </div>

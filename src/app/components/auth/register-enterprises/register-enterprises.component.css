@@ -36,8 +36,9 @@ body{
 }
 
 .container-page{ 
-  height: 85vh;
-  width: 20vw;
+  margin-top: 5px;
+  height: 98vh;
+  width: 30vw;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -155,4 +156,28 @@ color: transparent;
 .button-second:hover{
   opacity: 1;
 }
+
+.form-group {
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 45%; /* Distribuye el ancho de los inputs en 4 partes iguales */
+  padding: 5px;
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  margin-right: 10px;
+  }
+  
+  .name-input {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  }
+  
+  select {
+  width: 100%;
+  padding: 5px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  }
+  
 

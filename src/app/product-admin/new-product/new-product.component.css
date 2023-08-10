@@ -36,8 +36,9 @@ body{
 }
 
 .container-page{ 
-    height: 60vh;
-    width: 20vw;
+    margin-top: 60px;
+    height: 85vh;
+    width: 30vw;  /*ancho contenedor*/
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -57,6 +58,7 @@ body{
     align-items: center;
     flex-direction: column;
     color: #141414;
+    
 }
 
 form{
@@ -78,7 +80,7 @@ form{
 }
 
 .input-line{
-    width: 100%;
+    width: 105%;
     height: 30px;
     background-color: transparent;
     border-top: none;
@@ -127,6 +129,12 @@ a {
     margin-bottom: 1rem;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
+
+    display: inline-block;
+    width: 45%; /* Distribuye el ancho de los inputs en 4 partes iguales */
+    padding: 5px;
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    margin-right: 10px;
 }
 
 .button-second{
@@ -143,9 +151,15 @@ a {
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     
-    display: flex;
+    
     justify-content: center;
     align-items: center;
+
+    display: inline-block;
+    width: 45%; /* Distribuye el ancho de los inputs en 4 partes iguales */
+    padding: 5px;
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    margin-right: 10px;
 }
 
 .button-login:hover{
@@ -158,6 +172,11 @@ a {
 
 .form-group {
   margin-bottom: 20px;
+  display: inline-block;
+  width: 45%; /* Distribuye el ancho de los inputs en 4 partes iguales */
+  padding: 5px;
+  box-sizing: border-box; /* Incluye el padding en el ancho total */
+  margin-right: 10px;
 }
 
 .name-input {
@@ -173,4 +192,3 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-

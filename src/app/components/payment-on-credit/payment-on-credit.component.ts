@@ -215,6 +215,9 @@ export class PaymentOnCreditComponent implements OnInit {
               return;
         }
   }
+  volver(): void {
+    this.router.navigate(['/debts']);
+  }
 
 
 }
