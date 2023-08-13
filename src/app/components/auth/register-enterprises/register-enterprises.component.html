@@ -23,9 +23,19 @@
                     [(ngModel)]="name" required>
                 </div>
                 <div class="form-group">
+                    <label class="name-input">Nombre de Usuario</label>
+                    <input type="text" name="name" id="name" class="input-line"
+                    [(ngModel)]="userName" required>
+                </div>
+                <div class="form-group">
+                    <label class="name-input">CI</label>
+                    <input type="text" name="ci" id="ci" class="input-line"
+                    [(ngModel)]="ci" required>
+                </div>
+                <div class="form-group">
                     <label class="name-input">Nombre de Empresa</label>
                     <input type="text" name="enterpriseName" id="enterpriseName" class="input-line"
-                    [(ngModel)]="enterpriseName" required>
+                    [(ngModel)]="nameE" required>
                 </div>
                 <div class="form-group">
                     <label class="name-input">Direccion</label>
@@ -40,17 +50,24 @@
                 <div class="form-group">
                     <label class="name-input">Imagen Empresa</label>
                     <input type="text" name="imageUrl" id="imageUrl" class="input-line"
-                    [(ngModel)]="imageUrl" required>
+                    [(ngModel)]="image_url" required>
                 </div>
                 <div class="form-group">
                     <label class="name-input">Categoria Empresa</label>
-                    <input type="text" name="category" id="category" class="input-line"
-                    [(ngModel)]="category" required>
+                    <select name="categoryE" id="lang" [(ngModel)]="categoryE" required>
+                        <option value="2">Maquillaje</option>
+                        <option value="3">Tecnologia</option>
+                      </select>
                 </div>
                 <div class="form-group">
                     <label class="name-input">Email</label>
                     <input type="text" name="email" id="email" class="input-line"
                     [(ngModel)]="email" required>
+                </div>
+                <div class="form-group">
+                    <label class="name-input">Email Empresa</label>
+                    <input type="text" name="email" id="email" class="input-line"
+                    [(ngModel)]="mail" required>
                 </div>
                 <div class="form-group">
                     <label class="name-input">Contraseña</label>

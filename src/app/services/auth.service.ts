@@ -24,6 +24,6 @@ export class AuthService {
   }
 
   public nuevoE(newEnterprise: NewEnterprise): Observable<any> {
-    return this.httpClient.post<any>(this.authURL + 'nuevo', newEnterprise);
+    return this.httpClient.post<any>(this.authURL + 'nuevoE', newEnterprise);
   }
 }

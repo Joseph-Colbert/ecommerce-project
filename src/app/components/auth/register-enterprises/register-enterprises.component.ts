@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NewEnterprise } from 'src/app/common/new-enterprise';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -16,13 +17,16 @@ export class RegisterEnterprisesComponent implements OnInit {
   isRegisterFail = false;
   newEnterprise!: NewEnterprise;
   name!: string;
-  enterpriseName!: string;
+  userName!: string;
   address!: string;
-  phone!: number;
-  imageUrl!: string;
-  category!: number;
+  phone!: string;
+  image_url!: string;
+  categoryE!: number;
   email!: string;
   password!: string;
+  mail!: string;
+  nameE!: string;
+  ci!: string;
   
   errMsj!: string;
   isLogged = false;
@@ -41,15 +45,18 @@ export class RegisterEnterprisesComponent implements OnInit {
   }
 
   onRegisterEnterprise(): void {
-    this.newEnterprise = new NewEnterprise(this.name, this.enterpriseName, this.address, this.phone, this.imageUrl, this.category, this.email, this.password);
+    this.newEnterprise = new NewEnterprise(this.name, this.userName, this.address, this.phone, 
+                                           this.image_url, this.email, this.password, this.ci, this.mail, this.nameE, this.categoryE);
     this.authService.nuevoE(this.newEnterprise).subscribe({
-      next: data => {
+      next:  response => {
         this.isRegister = true;
         this.isRegisterFail = false;
-
-
+        Swal.fire({
+          title: 'Empresa Creada', 
+          icon:'success'}); 
+        //alert(`Cambio de contraseña exitosa`);
         this.router.navigate(['/login']);
-      },
+      }, 
       error: err => {
         this.isRegister = false;
         this.isRegisterFail = true;

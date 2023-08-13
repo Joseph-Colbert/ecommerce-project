@@ -1,22 +1,30 @@
 export class NewEnterprise {
     name!: string;
-    enterpriseName!: string;
-    address!: string;
-    phone!: number;
-    imageUrl!: string;
-    category!: number;
+    userName!: string;
     email!: string;
     password!: string;
+    address!: string;
+    image_url!: string;
+    ci!: string;
+    mail!: string;
+    nameE!: string;
+    phone!: string;
+    categoryE!: number;
 
-    constructor(name: string, enterpriseName: string, address: string, phone: number, imageUrl: string, category: number, email: string, password: string){
+
+    constructor(name: string, userName: string, address: string, phone: string, image_url: string, email: string, password: string, ci: string, mail: string,
+                nameE: string, categoryE: number){
         this.name = name;
-        this.enterpriseName = enterpriseName;
+        this.userName = userName;
         this.address = address;
         this.phone = phone;
-        this.imageUrl = imageUrl;
-        this.category = category;
+        this.image_url = image_url;
+        this.categoryE = categoryE;
         this.email = email;
         this.password = password;
+        this.ci = ci;
+        this.mail = mail;
+        this.nameE = nameE;
     }
 
 }
