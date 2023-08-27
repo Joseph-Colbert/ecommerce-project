@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { NewEnterprise } from 'src/app/common/new-enterprise';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 
@@ -34,7 +36,8 @@ export class RegisterEnterprisesComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -65,5 +68,22 @@ export class RegisterEnterprisesComponent implements OnInit {
       }
   });
   }
+
+  onFileSelected(event:any){
+    const selectedFile = event.target.files[0] as File;
+    const url = "/upload";
+    const apiKey = "8b712b425588677ba3ced303c23e416a";
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+    this.image(url, formData, apiKey)
+      .subscribe(
+        response => {
+          this.image_url = response.data.url
+        })
+}
+
+image(url: string, formData: FormData, apiKey: string): Observable<any>{
+  return this.http.post(url, formData, {params: { key:apiKey}})
+}
 
 }

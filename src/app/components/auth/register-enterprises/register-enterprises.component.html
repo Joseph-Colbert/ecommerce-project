@@ -49,8 +49,7 @@
                 </div>
                 <div class="form-group">
                     <label class="name-input">Imagen Empresa</label>
-                    <input type="text" name="imageUrl" id="imageUrl" class="input-line"
-                    [(ngModel)]="image_url" required>
+                    <input type="file" class="file-upload"(change)="onFileSelected($event)" #fileUpload>
                 </div>
                 <div class="form-group">
                     <label class="name-input">Categoria Empresa</label>
